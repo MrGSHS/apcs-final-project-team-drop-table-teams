@@ -5,7 +5,7 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class RPS extends Menu
+public class RPS extends Game //Rock Paper Scissors
 {
     // instance variables - replace the example below with your own
     private int x;
