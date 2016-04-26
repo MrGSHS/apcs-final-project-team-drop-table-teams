@@ -18,9 +18,14 @@ public class Hand
         sticksOut = sticks;
     }
     
-    public changeSticks(int addition)
+    public void changeSticks(int addition)
     {
         sticksOut+=addition; //stick adn stones may brea, my bonse (thanks jerry_
-        sticksOut%=5
+        sticksOut%=5;
+    }
+    
+    public int getSticks()
+    {
+        return sticksOut;
     }
 }

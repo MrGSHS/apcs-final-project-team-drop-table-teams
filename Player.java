@@ -1,6 +1,6 @@
 
 /**
- * Write a description of class Player1 here.
+ * Write a description of class Player here.
  * 
  * @author (your name) 
  * @version (a version number or a date)

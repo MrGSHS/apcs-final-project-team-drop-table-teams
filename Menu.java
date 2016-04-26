@@ -1,19 +1,19 @@
 
 /**
- * Write a description of class Board here.
+ * Write a description of class Menu here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Board
+public class Menu
 {
     // instance variables - replace the example below with your own
     private int x;
 
     /**
-     * Constructor for objects of class Board
+     * Constructor for objects of class Menu
      */
-    public Board()
+    public Menu()
     {
         // initialise instance variables
         x = 0;
