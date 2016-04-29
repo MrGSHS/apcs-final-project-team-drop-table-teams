@@ -5,7 +5,7 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class TTT extends Game
+public class TTT //Tic Tac Toe
 {
     
 }

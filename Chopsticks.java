@@ -5,7 +5,7 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Chop extends Game
+public class Chopsticks //Chopsticks
 {
     // instance variables - replace the example below with your own
     private int x;
@@ -13,7 +13,7 @@ public class Chop extends Game
     /**
      * Constructor for objects of class Chop
      */
-    public Chop()
+    public Chopsticks()
     {
         // initialise instance variables
         x = 0;
