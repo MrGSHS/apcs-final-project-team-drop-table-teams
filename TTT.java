@@ -23,17 +23,12 @@ public class TTT //Tic Tac Toe
         display();
     }
     
-//     public static void display()
-//     {
-//         JFrame f = new JFrame("Tic Tac Toe");
-//         f.setSize(500,500);
-//         f.setVisible(true);
-//         for (int r = 0; r < board.length; r++){
-//             for (int c = 0; c < board[0].length; c++){
-//                 g.drawRect(500*r,500*c,500/board.length,500/board[0].length);
-//             }
-//         }
-//     }
+    public static void display()
+    {
+        JFrame f = new JFrame("Tic Tac Toe");
+        f.setSize(500,500);
+        f.setVisible(true);
+    }
     
     public void paint(Graphics g)
     {
