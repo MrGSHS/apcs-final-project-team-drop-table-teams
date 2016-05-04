@@ -26,7 +26,7 @@ public class Chopsticks_Panel extends JPanel implements MouseListener
         g.setColor(Color.red);
         
         int r = 3, c = 3;
-        TTT tic = new TTT();
+        Chopsticks chop = new Chopsticks();
         for (int i = 1; i < r; i++){
             for (int j = 1; j < c; j++){
                 g.fillRect(0,i*(h/3)-10,500,20);
