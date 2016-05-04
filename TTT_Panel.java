@@ -21,13 +21,11 @@ public class TTT_Panel extends JPanel implements MouseListener
     public void paintComponent(Graphics g)
     {
         addMouseListener(this);
-
         super.paintComponent(g);
         int w= getWidth();
         int h= getHeight();
         setBackground(Color.lightGray);
         g.setColor(Color.red);
-        
         int r = 3, c = 3;
         TTT tic = new TTT();
         for (int i = 1; i < r; i++){

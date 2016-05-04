@@ -62,16 +62,15 @@ public class GameMenu extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent ae)
     {
         if(ae.getSource().equals(RPS)){
-            this.remove(buttonPanel);
+            frame.remove(buttonPanel);
             RPS_Panel rps = new RPS_Panel();
         }
         if(ae.getSource().equals(Chopsticks)){
-            this.remove(buttonPanel);
+            frame.remove(buttonPanel);
             Chopsticks_Panel chopsticks = new Chopsticks_Panel();
         }
         if(ae.getSource().equals(TTT)){
             this.remove(buttonPanel);
-            frame.remove(buttonPanel);
             TTT_Panel ttt = new TTT_Panel(frame);
         }
     } 
