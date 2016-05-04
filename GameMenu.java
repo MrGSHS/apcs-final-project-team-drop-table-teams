@@ -8,21 +8,21 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-public class GameMenu extends JPanel implements ActionListener
+public class GameMenu extends JPanel implements ActionListener, MouseListener
 {
     private static JFrame frame;
     private JButton RPS, Chopsticks, TTT;
-    private int game;
-    private static boolean showButt;
+    private int game, mouseX, mouseY;
+    Box buttonPanel;
     public static void main(String[] args)
     {
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(500,500));
-        showButt=true;
-        frame.getContentPane().add(new GameMenu());
+        frame.add(new GameMenu());
         frame.pack();
         frame.setVisible(true);
+        
     }
 
     public GameMenu()
@@ -44,42 +44,90 @@ public class GameMenu extends JPanel implements ActionListener
         TTT.setAlignmentY(Component.CENTER_ALIGNMENT);
         TTT.addActionListener(this);
 
-        Box buttonPanel = Box.createVerticalBox();
-        // buttonPanel.setLayout(new BorderLayout());
+        buttonPanel = Box.createVerticalBox();
+        //buttonPanel.setLayout();
         buttonPanel.add(RPS);
         buttonPanel.add(Box.createVerticalStrut(10));
         buttonPanel.add(Chopsticks);
         buttonPanel.add(Box.createVerticalStrut(10));
         buttonPanel.add(TTT);
-        
+        this.add(buttonPanel);
     }
 
     public void actionPerformed(ActionEvent ae)
     {
         if(ae.getSource().equals(RPS)){
-            showButt=false;
-            game=1;
+            game = 1;
         }
         if(ae.getSource().equals(Chopsticks)){
-            game=2;
+            game = 2;
         }
         if(ae.getSource().equals(TTT)){
-            game=3;
+            game = 3;
         }
     }
 
     public void paintComponent(Graphics g)
     {
-        if(game==1){
+        addMouseListener(this);
+        if (game == 1){
             super.paintComponent(g);
-            int w= getWidth()/2;
-            int h= getHeight()/2;
+            int w= getWidth();
+            int h= getHeight();
             setBackground(Color.lightGray);
-            g.setColor(Color.green);
-            g.fillRect(w-100/2,h-25/2,100,25);
-            g.setColor(Color.black);
-            g.drawString("Rock Paper Scissors",w-110/2,h+1/2);
+            this.remove(buttonPanel);
         }
-
+        
+        if (game == 2){
+            super.paintComponent(g);
+            int w= getWidth();
+            int h= getHeight();
+            setBackground(Color.lightGray);
+            this.remove(buttonPanel);
+        }
+        
+        if (game == 3){
+            super.paintComponent(g);
+            int w= getWidth();
+            int h= getHeight();
+            setBackground(Color.lightGray);
+            g.setColor(Color.red);
+            this.remove(buttonPanel);
+            int r = 3, c = 3;
+            TTT tic = new TTT();
+            for (int i = 1; i < r; i++){
+                for (int j = 1; j < c; j++){
+                    g.fillRect(0,i*(h/3)-10,500,20);
+                    g.fillRect(j*(w/3)-10,0,20,500);
+                }
+            }
+            g.drawString(""+mouseX+" "+mouseY,200,150);
+        }
+    }
+    
+    public void mouseClicked(MouseEvent me)
+    {
+        mouseX = me.getX();
+        mouseY = me.getY();
+    }
+    
+    public void mousePressed(MouseEvent me)
+    {
+        
+    }
+    
+    public void mouseReleased(MouseEvent me)
+    {
+        
+    }
+    
+    public void mouseEntered(MouseEvent me)
+    {
+        
+    }
+    
+    public void mouseExited(MouseEvent me)
+    {
+        
     }
 }
