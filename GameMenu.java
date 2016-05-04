@@ -8,7 +8,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-public class GameMenu extends JPanel implements ActionListener, MouseListener
+public class GameMenu extends JPanel implements ActionListener
 {
     private static JFrame frame;
     private JButton RPS, Chopsticks, TTT;
@@ -69,7 +69,6 @@ public class GameMenu extends JPanel implements ActionListener, MouseListener
 
     public void paintComponent(Graphics g)
     {
-        addMouseListener(this);
         if (game == 1){
             super.paintComponent(g);
             int w= getWidth();
@@ -105,29 +104,5 @@ public class GameMenu extends JPanel implements ActionListener, MouseListener
         }
     }
     
-    public void mouseClicked(MouseEvent me)
-    {
-        mouseX = me.getX();
-        mouseY = me.getY();
-    }
     
-    public void mousePressed(MouseEvent me)
-    {
-        
-    }
-    
-    public void mouseReleased(MouseEvent me)
-    {
-        
-    }
-    
-    public void mouseEntered(MouseEvent me)
-    {
-        
-    }
-    
-    public void mouseExited(MouseEvent me)
-    {
-        
-    }
 }
