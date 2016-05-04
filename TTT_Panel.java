@@ -9,10 +9,13 @@ import java.awt.event.*;
  */
 public class TTT_Panel extends JPanel implements MouseListener
 {
+    JPanel panel;
     int mouseX, mouseY;
-    public TTT_Panel()
+    public TTT_Panel(JFrame frame)
     {
-
+        panel = new JPanel();
+        frame.add(panel);
+        frame.pack();
     }
 
     public void paintComponent(Graphics g)

@@ -57,52 +57,17 @@ public class GameMenu extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent ae)
     {
         if(ae.getSource().equals(RPS)){
-            game = 1;
+            this.remove(buttonPanel);
+            RPS_Panel rps = new RPS_Panel();
         }
         if(ae.getSource().equals(Chopsticks)){
-            game = 2;
+            this.remove(buttonPanel);
+            Chopsticks_Panel chopsticks = new Chopsticks_Panel();
         }
         if(ae.getSource().equals(TTT)){
-            game = 3;
-        }
-    }
-
-    public void paintComponent(Graphics g)
-    {
-        if (game == 1){
-            super.paintComponent(g);
-            int w= getWidth();
-            int h= getHeight();
-            setBackground(Color.lightGray);
             this.remove(buttonPanel);
+            frame.remove(buttonPanel);
+            TTT_Panel ttt = new TTT_Panel(frame);
         }
-        
-        if (game == 2){
-            super.paintComponent(g);
-            int w= getWidth();
-            int h= getHeight();
-            setBackground(Color.lightGray);
-            this.remove(buttonPanel);
-        }
-        
-        if (game == 3){
-            super.paintComponent(g);
-            int w= getWidth();
-            int h= getHeight();
-            setBackground(Color.lightGray);
-            g.setColor(Color.red);
-            this.remove(buttonPanel);
-            int r = 3, c = 3;
-            TTT tic = new TTT();
-            for (int i = 1; i < r; i++){
-                for (int j = 1; j < c; j++){
-                    g.fillRect(0,i*(h/3)-10,500,20);
-                    g.fillRect(j*(w/3)-10,0,20,500);
-                }
-            }
-            g.drawString(""+mouseX+" "+mouseY,200,150);
-        }
-    }
-    
-    
+    } 
 }
