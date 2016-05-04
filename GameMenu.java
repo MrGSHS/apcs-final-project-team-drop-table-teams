@@ -13,7 +13,7 @@ public class GameMenu extends JPanel implements ActionListener, MouseListener
     private static JFrame frame;
     private JButton RPS, Chopsticks, TTT;
     private int game, mouseX, mouseY;
-    Box buttonPanel;
+    JPanel buttonPanel;
     public static void main(String[] args)
     {
         frame = new JFrame();
@@ -30,28 +30,33 @@ public class GameMenu extends JPanel implements ActionListener, MouseListener
         //this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
         game = 0;
         RPS = new JButton("Rock Paper Scissors");
-        RPS.setAlignmentX(Component.CENTER_ALIGNMENT);
-        RPS.setAlignmentY(Component.CENTER_ALIGNMENT);
+        //RPS.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //RPS.setAlignmentY(Component.CENTER_ALIGNMENT);
         RPS.addActionListener(this);
 
         Chopsticks = new JButton("Chopsticks");
-        Chopsticks.setAlignmentX(Component.CENTER_ALIGNMENT);
-        Chopsticks.setAlignmentY(Component.CENTER_ALIGNMENT);
+        //Chopsticks.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //Chopsticks.setAlignmentY(Component.CENTER_ALIGNMENT);
         Chopsticks.addActionListener(this);
 
         TTT = new JButton("Tic Tac Toe");
-        TTT.setAlignmentX(Component.CENTER_ALIGNMENT);
-        TTT.setAlignmentY(Component.CENTER_ALIGNMENT);
+        //TTT.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //TTT.setAlignmentY(Component.CENTER_ALIGNMENT);
         TTT.addActionListener(this);
 
-        buttonPanel = Box.createVerticalBox();
+        buttonPanel = new JPanel(new GridLayout(3,1));
         //buttonPanel.setLayout();
         buttonPanel.add(RPS);
-        buttonPanel.add(Box.createVerticalStrut(10));
+        //buttonPanel.add(Box.createVerticalStrut(10));
         buttonPanel.add(Chopsticks);
-        buttonPanel.add(Box.createVerticalStrut(10));
+        //buttonPanel.add(Box.createVerticalStrut(10));
         buttonPanel.add(TTT);
-        this.add(buttonPanel);
+        
+        JPanel wrapperPanel = new JPanel(new GridBagLayout());
+        wrapperPanel.setPreferredSize(new Dimension(350,400));
+        wrapperPanel.add(buttonPanel);
+        
+        this.add(wrapperPanel);
     }
 
     public void actionPerformed(ActionEvent ae)
