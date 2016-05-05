@@ -1,4 +1,3 @@
- 
 
 /**
  * Write a description of class TTT here.
@@ -8,21 +7,35 @@
  */
 public class TTT // Tic Tac Toe
 {
-	private int[][] board;
+    private int[][] board;
 
-	public TTT() {
-		board = new int[3][3];
-	}
+    public TTT() {
+        board = new int[3][3];
+        for (int i = 0; i < 3; i++)
+            for (int j  = 0; j < 3; j++)
+                board[i][j] = 0;
+    }
 
-	public TTT(int r, int c) {
-		board = new int[r][c];
-	}
+    public TTT(int r, int c) {
+        board = new int[r][c];
+        for (int i = 0; i < r; i++)
+            for (int j  = 0; j < c; j++)
+                board[i][j] = 0;
+    }
 
-	public void changeBoard(int r, int c, int v) {
-		board[r][c] = v;
-	}
+    public void setBoard(int r, int c, int v) {
+        board[r][c] = v;
+    }
+    
+    public void setBoard(int[][] b){
+        board = b;
+    }
 
-	public int getBoard(int r, int c) {
-		return board[r][c];
-	}
+    public int[][] getBoard() {
+        return board;
+    }
+    
+    public int getBoard(int r, int c){
+        return board[r][c];
+    }
 }
