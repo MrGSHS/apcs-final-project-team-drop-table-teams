@@ -79,7 +79,7 @@ public class GameMenu extends JPanel implements ActionListener {
 		}
 		if (ae.getSource().equals(TTT)) {
 			frame.remove(game);
-			TTT_Panel ttt = new TTT_Panel();
+			TTT ttt = new TTT();
 			frame.add(ttt);
 			frame.pack();
 
