@@ -20,29 +20,6 @@ public class GameMenu extends JPanel implements ActionListener {
     private JPanel buttonPanel, wrapperPanel;
     private static GameMenu game = new GameMenu();
 
-<<<<<<< HEAD
-	public static void main(String[] args) {
-		
-		
-		//game.setOpacity(.55f);
-		GraphicsEnvironment ge = 
-            GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice gd = ge.getDefaultScreenDevice();
-        if (!gd.isWindowTranslucencySupported(TRANSLUCENT)) {
-            System.err.println(
-                "Translucency is not supported");
-                System.exit(0);
-        }
-        game = new GameMenu();
-       
-		frame = new JFrame();
-		
-		frame.setPreferredSize(new Dimension(500, 500));
-		frame.add(game);
-		frame.pack();
-		frame.setResizable(false);
-		frame.setVisible(true);
-=======
     public static void main(String[] args) {
         game = new GameMenu();
         frame = new JFrame();
@@ -52,7 +29,6 @@ public class GameMenu extends JPanel implements ActionListener {
         frame.pack();
         frame.setResizable(false);
         frame.setVisible(true);
->>>>>>> 69481a4b238e593b452768331026eeeeb12e6fd1
 
     }
 
@@ -88,26 +64,6 @@ public class GameMenu extends JPanel implements ActionListener {
         this.add(wrapperPanel);
     }
 
-<<<<<<< HEAD
-	public void actionPerformed(ActionEvent ae) {
-		if (ae.getSource().equals(RPS)) {
-			frame.remove(game);
-			RPS rps = new RPS();
-			frame.add(rps);
-			frame.pack();
-		}
-		if (ae.getSource().equals(Chopsticks)) {
-			frame.remove(game);
-			Chopsticks chopsticks = new Chopsticks();
-			frame.add(chopsticks);
-			frame.pack();
-		}
-		if (ae.getSource().equals(TTT)) {
-			frame.remove(game);
-			TTT ttt = new TTT();
-			frame.add(ttt);
-			frame.pack();
-=======
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource().equals(RPS)) {
             frame.remove(game);
@@ -126,7 +82,6 @@ public class GameMenu extends JPanel implements ActionListener {
             TTT ttt = new TTT();
             frame.add(ttt);
             frame.pack();
->>>>>>> 69481a4b238e593b452768331026eeeeb12e6fd1
 
         }
     }
