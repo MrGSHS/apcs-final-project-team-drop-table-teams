@@ -2,7 +2,10 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.Polygon.*;
+import java.awt.image.*;
+import java.io.File;
+import javax.imageio.*;
+import java.io.*;
 /**
  * Write a description of class TTT_Frame here.
  * 
@@ -15,6 +18,7 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     private Timer timer;
     private int[][] board;
     private boolean win = false;
+    BufferedImage x, o;
     public TTT() {
         board = new int[3][3];
         s = 3;
@@ -39,17 +43,26 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        try 
+        {
+            x = ImageIO.read(new File("x.png"));
+            o = ImageIO.read(new File("o.png"));
+        }
+        catch (IOException e)
+        {
+            System.out.println("Image could not be read");
+            System.exit(1);
+        }
         int w = getWidth();
         int h = getHeight();
         setBackground(Color.lightGray);
-        g.setColor(Color.red);
+        g.setColor(Color.black);
         for (int i = 1; i < s; i++) {
             for (int j = 1; j < s; j++) {
                 g.fillRect(0, i * (h / 3) - 10, 500, 20);
                 g.fillRect(j * (w / 3) - 10, 0, 20, 500);
             }
         }
-        g.drawString("" + mX + " " + mY + " " + ctr, 200, 125);
         for (int i = 0; i < s; i++){
             for (int j = 0; j < s; j++){
                 if (i == mX && j == mY && board[j][i] == 0){
@@ -61,18 +74,13 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++){
                 if (board[j][i] == 1){
-                    g.setColor(Color.blue);
-                    g.fillOval(i*500/3,j*500/3,140,140);
+                    g.drawImage(x,i*500/3,j*500/3,null);
                 }
                 else if (board[j][i] == 2){
-                    g.setColor(Color.red);
-                    g.fillRect(i*500/3,j*500/3,140,140);
+                    g.drawImage(o,i*500/3,j*500/3,null);
                 }
-                System.out.print(board[i][j]);
             }
-            System.out.println("");
         }
-        System.out.println(ctr + "");
         if (checkWinner(ctr%2+1)){
             win = true;
             g.drawString("you are winner",250,250);
@@ -108,7 +116,7 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
             mY = (int)(me.getY()/500.0*3);
         }
         else
-            System.out.print("");
+            GameMenu.main(new String[0]);
     }
 
     public void mouseEntered(MouseEvent me) {
