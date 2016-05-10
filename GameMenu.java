@@ -9,6 +9,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import static java.awt.GraphicsDevice.WindowTranslucency.*;
 
 public class GameMenu extends JPanel implements ActionListener {
 	/**
@@ -21,9 +22,21 @@ public class GameMenu extends JPanel implements ActionListener {
 	private static GameMenu game = new GameMenu();
 
 	public static void main(String[] args) {
-		game = new GameMenu();
+		
+		
+		//game.setOpacity(.55f);
+		GraphicsEnvironment ge = 
+            GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        if (!gd.isWindowTranslucencySupported(TRANSLUCENT)) {
+            System.err.println(
+                "Translucency is not supported");
+                System.exit(0);
+        }
+        game = new GameMenu();
+       
 		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		frame.setPreferredSize(new Dimension(500, 500));
 		frame.add(game);
 		frame.pack();
@@ -67,13 +80,13 @@ public class GameMenu extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource().equals(RPS)) {
 			frame.remove(game);
-			RPS_Panel rps = new RPS_Panel();
+			RPS rps = new RPS();
 			frame.add(rps);
 			frame.pack();
 		}
 		if (ae.getSource().equals(Chopsticks)) {
 			frame.remove(game);
-			Chopsticks_Panel chopsticks = new Chopsticks_Panel();
+			Chopsticks chopsticks = new Chopsticks();
 			frame.add(chopsticks);
 			frame.pack();
 		}

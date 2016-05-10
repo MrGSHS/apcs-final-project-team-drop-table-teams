@@ -10,7 +10,7 @@ import java.awt.event.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Chopsticks_Panel extends JPanel implements MouseListener, ActionListener {
+public class Chopsticks extends JPanel implements MouseListener, ActionListener {
     /**
      * 
      */
@@ -24,7 +24,7 @@ public class Chopsticks_Panel extends JPanel implements MouseListener, ActionLis
     int p3 = 1;
     int p4 = 1;
     
-    public Chopsticks_Panel() {
+    public Chopsticks() {
         addMouseListener(this);
     }
 
