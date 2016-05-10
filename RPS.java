@@ -1,3 +1,12 @@
+ 
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.image.*;
+import java.io.File;
+import javax.imageio.*;
+import java.io.*;
 
 import java.awt.*;
 import javax.swing.*;
@@ -13,12 +22,15 @@ import java.io.*;
  * @author (your name)
  * @version (a version number or a date)
  */
+
 public class RPS extends JPanel implements MouseListener, MouseMotionListener{
+
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
     int mouseX, mouseY;
+
     private boolean isInRectangle = false;
     public RPS() {
         addMouseListener(this);
@@ -27,6 +39,13 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
 
     public void paintComponent(Graphics g) {
         //super.paintComponent(g);
+
+
+    
+
+
+       
+
         int w = getWidth();
         int h = getHeight();
         setBackground(Color.blue);
@@ -58,6 +77,7 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         g.drawImage(compPaper,375,175,null); //compPaper
         g.drawImage(compScissors,375,300,null); //compScissors
 
+
         g.setColor(Color.red);
         g.fillRect(200,200, 100, 100);
 
@@ -71,7 +91,11 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
 
     public void mouseClicked(MouseEvent me) {
 
+
+        
     }
+
+    
 
     public void mousePressed(MouseEvent me) {
 
@@ -89,6 +113,7 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
 
     }
 
+
     public void mouseMoved(MouseEvent me){
         isInRectangle = (me.getX() >= 200 && me.getX() <= 300) && (me.getY() >= 200 && me.getY() <= 300);
         
@@ -98,4 +123,6 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
 
     public void mouseDragged(MouseEvent me){
     }
+
+
 }
