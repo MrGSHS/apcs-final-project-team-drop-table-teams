@@ -73,7 +73,7 @@ public class GameMenu extends JPanel implements ActionListener {
 		}
 		if (ae.getSource().equals(Chopsticks)) {
 			frame.remove(game);
-			Chopsticks_Panel chopsticks = new Chopsticks_Panel();
+			Chopsticks chopsticks = new Chopsticks();
 			frame.add(chopsticks);
 			frame.pack();
 		}
