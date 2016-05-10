@@ -67,7 +67,7 @@ public class GameMenu extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource().equals(RPS)) {
 			frame.remove(game);
-			RPS_Panel rps = new RPS_Panel();
+			RPS rps = new RPS();
 			frame.add(rps);
 			frame.pack();
 		}
