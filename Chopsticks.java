@@ -2,6 +2,11 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.image.*;
+import java.io.File;
+import javax.imageio.*;
+import java.io.*;
+
 
 /**
  * Write a description of class TTT_Frame here.
@@ -32,6 +37,20 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
         int h = getHeight();
         setBackground(Color.lightGray);
         
+        BufferedImage ChopUp = null;
+        BufferedImage ChopDown = null;
+        try 
+        {
+            ChopUp = ImageIO.read(new File("c2.png"));
+            ChopDown = ImageIO.read(new File("c1.png"));
+           
+        }
+        catch (IOException e)
+        {
+            System.out.println("Image could not be read");
+            System.exit(1);
+        }
+        
         if((p1 == 0 && p2 == 0) || (p3 == 0 && p4 == 0)){
             setBackground(Color.orange);
             g.setColor(Color.blue);
@@ -48,7 +67,6 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
             g.drawString("Player 1", 210, 10);
             g.setColor(Color.red);
             g.drawString("Player 2", 210, 470);
-        
             g.setColor(Color.black);
             
             if( mouseC % 4 == 0 ){
@@ -63,11 +81,15 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
             else if( mouseC % 4 == 3 ){
                 g.drawString("Player 2 choose oppenent's hand", 150, 230);
             }
-        
+            
+            for (int i = 1; i <= p1; i++){
+                g.drawImage(ChopUp,i*10,300,null);
+            }
             g.drawString(""+p1, 120, 370);
             g.drawString(""+p2, 370, 370);
             g.drawString(""+p3, 120, 120);
             g.drawString(""+p4, 370, 120);
+            
         }
     }
 
