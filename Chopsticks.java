@@ -35,14 +35,14 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
         super.paintComponent(g);
         int w = getWidth();
         int h = getHeight();
-        setBackground(Color.lightGray);
+        setBackground(Color.white);
         
         BufferedImage ChopUp = null;
         BufferedImage ChopDown = null;
         try 
         {
-            ChopUp = ImageIO.read(new File("c2.png"));
-            ChopDown = ImageIO.read(new File("c1.png"));
+            ChopUp = ImageIO.read(new File("image1.png"));
+            ChopDown = ImageIO.read(new File("image2.png"));
            
         }
         catch (IOException e)
@@ -64,9 +64,9 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
         
         if (win == false){
             g.setColor(Color.blue);
-            g.drawString("Player 1", 210, 10);
+            g.drawString("Player 1", 210, 15);
             g.setColor(Color.red);
-            g.drawString("Player 2", 210, 470);
+            g.drawString("Player 2", 210, 473);
             g.setColor(Color.black);
             
             if( mouseC % 4 == 0 ){
@@ -83,12 +83,64 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
             }
             
             for (int i = 1; i <= p1; i++){
-                g.drawImage(ChopUp,i*10,300,null);
+                if (i == 1){
+                    g.drawImage(ChopUp,100,300,null);
+                }
+                if (i == 2){
+                    g.drawImage(ChopUp,140,300,null);
+                }
+                if (i == 3){
+                    g.drawImage(ChopUp,60,300,null);
+                }
+                if (i == 4){
+                    g.drawImage(ChopUp,20,300,null);
+                }
             }
-            g.drawString(""+p1, 120, 370);
-            g.drawString(""+p2, 370, 370);
-            g.drawString(""+p3, 120, 120);
-            g.drawString(""+p4, 370, 120);
+            
+            for (int i = 1; i <= p2; i++){
+                if (i == 1){
+                    g.drawImage(ChopUp,100 +250,300,null);
+                }
+                if (i == 2){
+                    g.drawImage(ChopUp,140 +250,300,null);
+                }
+                if (i == 3){
+                    g.drawImage(ChopUp,60 +250,300,null);
+                }
+                if (i == 4){
+                    g.drawImage(ChopUp,20 +250,300,null);
+                }
+            }
+            
+            for (int i = 1; i <= p3; i++){
+                if (i == 1){
+                    g.drawImage(ChopDown,100,-200,null);
+                }
+                if (i == 2){
+                    g.drawImage(ChopDown,140,-200,null);
+                }
+                if (i == 3){
+                    g.drawImage(ChopDown,60,-200,null);
+                }
+                if (i == 4){
+                    g.drawImage(ChopDown,20,-200,null);
+                }
+            }
+            
+            for (int i = 1; i <= p4; i++){
+                if (i == 1){
+                    g.drawImage(ChopDown,100 +250,-200,null);
+                }
+                if (i == 2){
+                    g.drawImage(ChopDown,140 +250,-200,null);
+                }
+                if (i == 3){
+                    g.drawImage(ChopDown,60 +250,-200,null);
+                }
+                if (i == 4){
+                    g.drawImage(ChopDown,20 +250,-200,null);
+                }
+            }
             
         }
     }
