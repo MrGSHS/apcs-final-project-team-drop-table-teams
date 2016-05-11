@@ -1,5 +1,4 @@
 
-
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -23,7 +22,11 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
     private static final long serialVersionUID = 1L;
     int mouseX, mouseY;
 
-    private boolean isInRectangle = false;
+    
+    private boolean isHoveringOverRock = false;
+    private boolean isHoveringOverPaper = false;
+    private boolean isHoveringOverScissors = false;
+
     public RPS() {
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -37,15 +40,18 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         g.setColor(Color.red);
         BufferedImage userRock= null;
         BufferedImage userPaper=null;
+        BufferedImage userPaperHighlight = null;
         BufferedImage userScissors= null;
         BufferedImage compRock = null;
         BufferedImage compPaper = null;
         BufferedImage compScissors = null;
+        
         try 
         {
             userRock = ImageIO.read(new File("Rock.png"));
             userPaper = ImageIO.read(new File("Paper.png"));
             userScissors = ImageIO.read(new File("Scissors.png"));
+            userPaperHighlight = ImageIO.read(new File("highlightedPaper.png"));
             compRock = ImageIO.read(new File("Rock.png"));
             compPaper = ImageIO.read(new File("Paper.png"));
             compScissors = ImageIO.read(new File("Scissors.png"));
@@ -57,27 +63,25 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         }
         g.drawImage(userRock,50,50,null); //userRock
         g.drawImage(userPaper,50,175,null); //userPaper
+        if (!isHoveringOverPaper)
+            g.drawImage(userPaper,50,175,null); //userPaper
+        else
+            g.drawImage(userPaperHighlight,50,175,null);
         g.drawImage(userScissors,50,300,null); //userScissors
         g.drawImage(compRock,375,50,null); //compRock
         g.drawImage(compPaper,375,175,null); //compPaper
         g.drawImage(compScissors,375,300,null); //compScissors
 
-        g.setColor(Color.red);
-        g.fillRect(200,200, 100, 100);
+        
 
-        if (isInRectangle)
-        {
-            g.setColor(Color.green);
-            g.fillRect(200,200, 100, 100);
-        }
+        
+
         repaint();
     }
 
     public void mouseClicked(MouseEvent me) {
 
-        
     }
-
 
     public void mousePressed(MouseEvent me) {
 
@@ -96,8 +100,9 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
     }
 
     public void mouseMoved(MouseEvent me){
-        isInRectangle = (me.getX() >= 200 && me.getX() <= 300) && (me.getY() >= 200 && me.getY() <= 300);
-
+        isHoveringOverRock = (me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 50 && me.getY() <= 157);
+        isHoveringOverPaper = (me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 175 && me.getY() <= 279);
+        isHoveringOverScissors  = (me.getX() >= 50 && me.getX() <= 121) && (me.getY() >= 300 && me.getY() <= 405);
     }
 
     public void mouseDragged(MouseEvent me){
