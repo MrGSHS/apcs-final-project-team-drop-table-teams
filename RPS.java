@@ -22,11 +22,11 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
     private static final long serialVersionUID = 1L;
     int mouseX, mouseY;
 
-    
     private boolean isHoveringOverRock = false;
     private boolean isHoveringOverPaper = false;
-    private boolean paperClicked = false;
     private boolean isHoveringOverScissors = false;
+    private boolean choiceMade = false;
+    private int userChoice;
 
     public RPS() {
         addMouseListener(this);
@@ -48,7 +48,7 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         BufferedImage compRock = null;
         BufferedImage compPaper = null;
         BufferedImage compScissors = null;
-        
+
         try 
         {
             userRock = ImageIO.read(new File("Rock.png"));
@@ -78,22 +78,74 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
             g.drawImage(userScissors,50,300,null); //userScissors
         else
             g.drawImage(userScissorsHighlight,50,300,null);
-            
+
         g.drawImage(compRock,375,50,null); //compRock
         g.drawImage(compPaper,375,175,null); //compPaper
         g.drawImage(compScissors,375,300,null); //compScissors
         
+        //choice 1 is rock
+        //choice 2 is paper
+        //choice 3 is scissors
+        if (choiceMade)
+        {
+            System.out.println("User choice: " + userChoice);
+            int compChoice= (int)((Math.random())*3+1);
+            System.out.println("Computer choice: " + compChoice);
+            choiceMade = false;
+            if (userChoice == compChoice)
+            { 
+            }
+            if (userChoice == 1 && compChoice == 2)
+            {
+                System.out.println("LOSE");
+            }
+            if (userChoice == 1 && compChoice == 3)
+            {
+                System.out.println("WIN");
+            }
+            if (userChoice == 2 && compChoice == 1)
+            {
+                System.out.println("WIN");
+            }
+            if (userChoice == 2 && compChoice == 3)
+            {
+                System.out.println("LOSE");
+            }
+            if (userChoice == 3 && compChoice == 1)
+            {
+                System.out.println("LOSE");
+            }
+            if (userChoice == 3 && compChoice == 2)
+            {
+                System.out.println("WIN");
+            }
+                
+                
+            
+        }
         
-
-        
-
-        
-
-        repaint();
     }
 
     public void mouseClicked(MouseEvent me) {
-        paperClicked = (me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 175 && me.getY() <= 279);
+        if (!choiceMade)
+        {
+            if ((me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 50 && me.getY() <= 157))
+            {
+                userChoice = 1;
+                choiceMade = true;
+            }
+            if ((me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 175 && me.getY() <= 279))
+            {
+                userChoice = 2;
+                choiceMade = true;
+            }
+            if ((me.getX() >= 50 && me.getX() <= 121) && (me.getY() >= 300 && me.getY() <= 405))
+            {
+                userChoice = 3;
+                choiceMade = true;
+            }
+            repaint();
+        }
     }
 
     public void mousePressed(MouseEvent me) {
@@ -116,6 +168,7 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         isHoveringOverRock = (me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 50 && me.getY() <= 157);
         isHoveringOverPaper = (me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 175 && me.getY() <= 279);
         isHoveringOverScissors  = (me.getX() >= 50 && me.getX() <= 121) && (me.getY() >= 300 && me.getY() <= 405);
+        repaint();
     }
 
     public void mouseDragged(MouseEvent me){
