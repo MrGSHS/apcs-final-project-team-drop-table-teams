@@ -25,6 +25,7 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
     
     private boolean isHoveringOverRock = false;
     private boolean isHoveringOverPaper = false;
+    private boolean paperClicked = false;
     private boolean isHoveringOverScissors = false;
 
     public RPS() {
@@ -39,9 +40,11 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         setBackground(Color.blue);
         g.setColor(Color.red);
         BufferedImage userRock= null;
+        BufferedImage userRockHighlight = null;
         BufferedImage userPaper=null;
         BufferedImage userPaperHighlight = null;
         BufferedImage userScissors= null;
+        BufferedImage userScissorsHighlight = null;
         BufferedImage compRock = null;
         BufferedImage compPaper = null;
         BufferedImage compScissors = null;
@@ -49,9 +52,11 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         try 
         {
             userRock = ImageIO.read(new File("Rock.png"));
+            userRockHighlight = ImageIO.read(new File("highlightedRock.png"));
             userPaper = ImageIO.read(new File("Paper.png"));
-            userScissors = ImageIO.read(new File("Scissors.png"));
             userPaperHighlight = ImageIO.read(new File("highlightedPaper.png"));
+            userScissors = ImageIO.read(new File("Scissors.png"));
+            userScissorsHighlight = ImageIO.read(new File("highlightedScissors.png"));
             compRock = ImageIO.read(new File("Rock.png"));
             compPaper = ImageIO.read(new File("Paper.png"));
             compScissors = ImageIO.read(new File("Scissors.png"));
@@ -61,16 +66,24 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
             System.out.println("Image could not be read");
             System.exit(1);
         }
-        g.drawImage(userRock,50,50,null); //userRock
-        g.drawImage(userPaper,50,175,null); //userPaper
+        if (!isHoveringOverRock)
+            g.drawImage(userRock,50,50,null); //userRock
+        else
+            g.drawImage(userRockHighlight,50,50,null);
         if (!isHoveringOverPaper)
-            g.drawImage(userPaper,50,175,null); //userPaper
+            g.drawImage(userPaper,50,175,null); 
         else
             g.drawImage(userPaperHighlight,50,175,null);
-        g.drawImage(userScissors,50,300,null); //userScissors
+        if (!isHoveringOverScissors)
+            g.drawImage(userScissors,50,300,null); //userScissors
+        else
+            g.drawImage(userScissorsHighlight,50,300,null);
+            
         g.drawImage(compRock,375,50,null); //compRock
         g.drawImage(compPaper,375,175,null); //compPaper
         g.drawImage(compScissors,375,300,null); //compScissors
+        
+        
 
         
 
@@ -80,7 +93,7 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
     }
 
     public void mouseClicked(MouseEvent me) {
-
+        paperClicked = (me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 175 && me.getY() <= 279);
     }
 
     public void mousePressed(MouseEvent me) {
