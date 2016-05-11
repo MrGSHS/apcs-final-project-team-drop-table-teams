@@ -56,11 +56,6 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
         }
         setBackground(Color.lightGray);
         g.setColor(Color.black);
-        for (int i = 1; i < s; i++) 
-            for (int j = 1; j < s; j++) {
-                g.fillRect(0, i * (getHeight() / 3) - 10, 500, 20);
-                g.fillRect(j * (getWidth() / 3) - 10, 0, 20, 500);
-            }
         for (int i = 0; i < s; i++)
             for (int j = 0; j < s; j++)
                 if (i == mX && j == mY && board[j][i] == 0){
@@ -82,6 +77,11 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
             end = true;
             g.drawString("Tie",225,250);
         }
+        for (int i = 1; i < s; i++) 
+            for (int j = 1; j < s; j++) {
+                g.fillRect(0, i * (getHeight() / 3) - 10, 500, 20);
+                g.fillRect(j * (getWidth() / 3) - 10, 0, 20, 500);
+            }
     }
 
     public int checkWinner()
