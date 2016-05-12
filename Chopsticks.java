@@ -19,14 +19,14 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
      * 
      */
     private static final long serialVersionUID = 1L;
-    int mouseX, mouseY;
-    int mouseC = 0;
-    boolean win = false;
-    int choice1 = 0;
-    int p1 = 1;
-    int p2 = 1;
-    int p3 = 1;
-    int p4 = 1;  
+    private int mouseX, mouseY;
+    private int mouseC = 0;
+    private boolean win = false;
+    private int choice1 = 0;
+    private int p1 = 1;
+    private int p2 = 1;
+    private int p3 = 1;
+    private int p4 = 1;  
     public Chopsticks() {
         addMouseListener(this);
     }
@@ -35,15 +35,21 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
         super.paintComponent(g);
         int w = getWidth();
         int h = getHeight();
-        setBackground(Color.white);
         
         BufferedImage ChopUp = null;
         BufferedImage ChopDown = null;
+        BufferedImage ChopWin = null;
+        BufferedImage P1Win = null;
+        BufferedImage P2Win = null;
+        BufferedImage BackGround = null;
         try 
         {
-            ChopUp = ImageIO.read(new File("image1.png"));
-            ChopDown = ImageIO.read(new File("image2.png"));
-           
+            ChopUp = ImageIO.read(new File("c2.png"));
+            ChopDown = ImageIO.read(new File("c1.png"));
+            ChopWin = ImageIO.read(new File("chopsticks.png"));
+            P1Win = ImageIO.read(new File("p1win.png"));
+            P2Win = ImageIO.read(new File("p2win.png"));
+            BackGround = ImageIO.read(new File("bg.jpg"));
         }
         catch (IOException e)
         {
@@ -51,10 +57,30 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
             System.exit(1);
         }
         
-        if((p1 == 0 && p2 == 0) || (p3 == 0 && p4 == 0)){
-            setBackground(Color.orange);
+        g.drawImage(BackGround,0,0, null);
+        
+        if((p3 == 0 && p4 == 0)){
+            g.drawImage(ChopWin,10, 40, null);
             g.setColor(Color.blue);
-            g.drawString("Player 1 is the winner! Congratulations!", 120, 220);
+            g.drawImage(P1Win,-180, 200, null);
+            
+            g.setColor(Color.lightGray);
+            g.fillRect(400,400,100,100);
+            
+            g.setColor(Color.red);
+            g.drawLine(400,400,400,500);
+            g.drawLine(400,400,500,400);
+            g.drawString("Menu",430,440);
+            win = true;
+        } 
+        else if((p1 == 0 && p2 == 0)){
+            g.drawImage(ChopWin,10, 40, null);
+            g.setColor(Color.blue);
+            g.drawImage(P2Win,-180, 200, null);
+            
+            g.setColor(Color.lightGray);
+            g.fillRect(400,400,100,100);
+            
             g.setColor(Color.red);
             g.drawLine(400,400,400,500);
             g.drawLine(400,400,500,400);
@@ -63,22 +89,43 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
         } 
         
         if (win == false){
+            
+            
+            g.setColor(Color.lightGray);
+            g.fillRect(200,10,70,30);
             g.setColor(Color.blue);
-            g.drawString("Player 1", 210, 15);
+            g.drawRect(200,10,70,30);
+            g.drawString("Player 1", 210, 30);
+            
+            g.setColor(Color.lightGray);
+            g.fillRect(200,438,70,30);
             g.setColor(Color.red);
-            g.drawString("Player 2", 210, 473);
-            g.setColor(Color.black);
+            g.drawRect(200,438,70,30);
+            g.drawString("Player 2", 210, 458);
+            g.setColor(Color.lightGray);
             
             if( mouseC % 4 == 0 ){
+                g.fillRect(140,210,190,30);
+                g.setColor(Color.black);
+                g.drawRect(140,210,190,30);
                 g.drawString("Player 1 choose your hand", 150, 230);
             }
             else if( mouseC % 4 == 1 ){
+                g.fillRect(140,210,220,30);
+                g.setColor(Color.black);
+                g.drawRect(140,210,220,30);
                 g.drawString("Player 1 choose opponent's hand", 150, 230);
             }
             else if( mouseC % 4 == 2 ){
+                g.fillRect(140,210,190,30);
+                g.setColor(Color.black);
+                g.drawRect(140,210,190,30);
                 g.drawString("Player 2 choose your hand", 150, 230);
             }
             else if( mouseC % 4 == 3 ){
+                g.fillRect(140,210,220,30);
+                g.setColor(Color.black);
+                g.drawRect(140,210,220,30);
                 g.drawString("Player 2 choose oppenent's hand", 150, 230);
             }
             
