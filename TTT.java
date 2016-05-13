@@ -37,7 +37,7 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     public void init()
     {
         ctr = 0;
-        mX = mY = 3;
+        mX = mY = s+1;
         timer = new Timer(16, this);
         timer.start();
         addMouseListener(this);
@@ -46,42 +46,47 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     public void paintComponent(Graphics g) 
     {
         super.paintComponent(g);
-        try {
-            x = ImageIO.read(new File("x.png"));
-            o = ImageIO.read(new File("o.png"));
-        }
-        catch (IOException e){
-            System.out.println("Image could not be read");
-            System.exit(1);
-        }
-        setBackground(Color.lightGray);
-        g.setColor(Color.black);
-        for (int i = 0; i < s; i++)
-            for (int j = 0; j < s; j++)
-                if (i == mX && j == mY && board[j][i] == 0){
-                    ctr++;
-                    board[j][i] = ctr%2+1;
+        //if (!end){
+            try {
+                x = ImageIO.read(new File("x.png"));
+                o = ImageIO.read(new File("o.png"));
+            }
+            catch (IOException e){
+                System.out.println("Image could not be read");
+                System.exit(1);
+            }
+            setBackground(Color.lightGray);
+            g.setColor(Color.black);
+            for (int i = 0; i < s; i++)
+                for (int j = 0; j < s; j++)
+                    if (i == mX && j == mY && board[j][i] == 0){
+                        ctr++;
+                        board[j][i] = ctr%2+1;
+                    }
+            for (int i = 0; i < board.length; i++) 
+                for (int j = 0; j < board[0].length; j++)
+                    if (board[j][i] == 1)
+                        g.drawImage(x,i*500/s,j*500/s,500/s,500/s,null);
+                    else if (board[j][i] == 2)
+                        g.drawImage(o,i*500/s,j*500/s,500/s,500/s,null);
+            for (int i = 1; i < s; i++) 
+                for (int j = 1; j < s; j++) {
+                    g.fillRect(0, i * (getHeight() / s) - 10, 500, 20);
+                    g.fillRect(j * (getWidth() / s) - 10, 0, 20, 500);
                 }
-        for (int i = 0; i < board.length; i++) 
-            for (int j = 0; j < board[0].length; j++)
-                if (board[j][i] == 1)
-                    g.drawImage(x,i*500/3,j*500/3,null);
-                else if (board[j][i] == 2)
-                    g.drawImage(o,i*500/3,j*500/3,null);
+        //}
         int w = checkWinner();
         if (w != 0){
+            Font f = new Font("Arial", Font.PLAIN, 48);
+            g.setFont(f);
             end = true;
-            g.drawString("Player "+w+" wins",225,250);
+            g.drawString("Player "+w+" wins",100,100);
         }
         else if (checkTie()){
             end = true;
             g.drawString("Tie",225,250);
         }
-        for (int i = 1; i < s; i++) 
-            for (int j = 1; j < s; j++) {
-                g.fillRect(0, i * (getHeight() / 3) - 10, 500, 20);
-                g.fillRect(j * (getWidth() / 3) - 10, 0, 20, 500);
-            }
+
     }
 
     public int checkWinner()
@@ -98,7 +103,7 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
             return board[0][2];
         return 0;
     }
-    
+
     public boolean checkTie()
     {
         for (int i = 0; i < s; i++)
@@ -118,8 +123,8 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
 
     public void mouseReleased(MouseEvent me) {
         if (!end){
-            mX = (int)(me.getX()/500.0*3);
-            mY = (int)(me.getY()/500.0*3);
+            mX = (int)(me.getX()/500.0*s);
+            mY = (int)(me.getY()/500.0*s);
         }
         else
             GameMenu.main(new String[0]);
