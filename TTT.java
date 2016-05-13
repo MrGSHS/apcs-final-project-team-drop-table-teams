@@ -14,7 +14,7 @@ import java.awt.Font.*;
  * @version (a version number or a date)
  */
 public class TTT extends JPanel implements MouseListener, ActionListener {
-    private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
     private boolean end = false;
     private BufferedImage x, o;
     private int mX, mY, ctr, s;
@@ -75,7 +75,8 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
                     g.fillRect(j * (getWidth() / s) - 10, 0, 20, 500);
                 }
         //}
-        int w = checkWinner();
+        System.out.print(ctr);
+        int w = checkWinner(ctr%2+1);
         if (w != 0){
             Font f = new Font("Arial", Font.PLAIN, 48);
             g.setFont(f);
@@ -89,18 +90,34 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
 
     }
 
-    public int checkWinner()
+    public int checkWinner(int w)
     {
+        boolean win = true;
         for (int i = 0; i < s; i++)
-            if (board[i][0] == board[i][1] && board[i][1] == board[i][2])
-                return board[i][0];
+            for (int j = 0; j < s; j++)
+                if (board[i][j] != w)
+                    win = false;
+        if (win)
+            return w;
+        win = true;
         for (int j = 0; j < s; j++)
-            if (board[0][j] == board[1][j] && board[1][j] == board[2][j])
-                return board[0][j];
-        if (board[0][0] == board[1][1] && board[1][1] == board[2][2])
-            return board[0][0];
-        if (board[0][2] == board[1][1] && board[1][1] == board[2][0])
-            return board[0][2];
+            for (int i = 0; i < s; i++)
+                if (board[i][j] != w)
+                    win = false;
+        if (win)
+            return w;
+        win = true;
+        for (int k = 0; k < s; k++)
+            if (board[k][k] != w)
+                win = false;
+        if (win)
+            return w;
+        win = true;
+        for (int l = s-1; l >= 0; l--)
+            if (board[l][s-l-1] != w)
+                win = false;
+        if (win)
+            return w;
         return 0;
     }
 
