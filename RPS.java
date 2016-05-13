@@ -27,6 +27,7 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
     private boolean isHoveringOverScissors = false;
     private boolean choiceMade = false;
     private int userChoice;
+    private int compChoice;
 
     public RPS() {
         addMouseListener(this);
@@ -37,8 +38,7 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         super.paintComponent(g);
         int w = getWidth();
         int h = getHeight();
-        setBackground(Color.blue);
-        g.setColor(Color.red);
+        setBackground(new Color(0,255,225));
         BufferedImage userRock= null;
         BufferedImage userRockHighlight = null;
         BufferedImage userPaper=null;
@@ -66,64 +66,108 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
             System.out.println("Image could not be read");
             System.exit(1);
         }
-        if (!isHoveringOverRock)
-            g.drawImage(userRock,50,50,null); //userRock
-        else
-            g.drawImage(userRockHighlight,50,50,null);
-        if (!isHoveringOverPaper)
-            g.drawImage(userPaper,50,175,null); 
-        else
-            g.drawImage(userPaperHighlight,50,175,null);
-        if (!isHoveringOverScissors)
-            g.drawImage(userScissors,50,300,null); //userScissors
-        else
-            g.drawImage(userScissorsHighlight,50,300,null);
+        if (!choiceMade)
+        {
+            if (!isHoveringOverRock)
+                g.drawImage(userRock,50,50,null); //userRock
+            else
+                g.drawImage(userRockHighlight,50,50,null);
+            if (!isHoveringOverPaper)
+                g.drawImage(userPaper,50,175,null); 
+            else
+                g.drawImage(userPaperHighlight,50,175,null);
+            if (!isHoveringOverScissors)
+                g.drawImage(userScissors,50,300,null); //userScissors
+            else
+                g.drawImage(userScissorsHighlight,50,300,null);
 
-        g.drawImage(compRock,375,50,null); //compRock
-        g.drawImage(compPaper,375,175,null); //compPaper
-        g.drawImage(compScissors,375,300,null); //compScissors
-        
+            g.drawImage(compRock,375,50,null); //compRock
+            g.drawImage(compPaper,375,175,null); //compPaper
+            g.drawImage(compScissors,375,300,null); //compScissors
+        }
+        else
+        {
+            if (userChoice == 1)
+            {
+                int x = 50;
+                int y = 50;
+                while (x<=213 && y<=105)
+                {
+                    g.drawImage(userRock, x , y, null);
+                    x++;
+                    y++;
+                }
+            }
+            if (userChoice == 2)
+            {
+                g.drawImage(userPaper, 213 ,105, null);
+            }
+            if (userChoice == 3)
+            {
+                g.drawImage(userScissors, 213 ,105, null);
+            }
+            if (compChoice == 1)
+            {
+                g.drawImage(userRock, 213, 250, null);
+            }
+            if (compChoice == 2)
+            {
+                g.drawImage(userPaper, 213, 250, null);
+            }
+            if (compChoice == 3)
+            {
+                g.drawImage(userScissors, 213, 250, null);
+            }
+
+        }
+
+    }
+    public void choiceLogic()
+    {
         //choice 1 is rock
         //choice 2 is paper
         //choice 3 is scissors
-        if (choiceMade)
-        {
-            System.out.println("User choice: " + userChoice);
-            int compChoice= (int)((Math.random())*3+1);
-            System.out.println("Computer choice: " + compChoice);
-            choiceMade = false;
-            if (userChoice == compChoice)
-            { 
-            }
-            if (userChoice == 1 && compChoice == 2)
-            {
-                System.out.println("LOSE");
-            }
-            if (userChoice == 1 && compChoice == 3)
-            {
-                System.out.println("WIN");
-            }
-            if (userChoice == 2 && compChoice == 1)
-            {
-                System.out.println("WIN");
-            }
-            if (userChoice == 2 && compChoice == 3)
-            {
-                System.out.println("LOSE");
-            }
-            if (userChoice == 3 && compChoice == 1)
-            {
-                System.out.println("LOSE");
-            }
-            if (userChoice == 3 && compChoice == 2)
-            {
-                System.out.println("WIN");
-            }
-                
-                
-            
+
+        System.out.println("User choice: " + userChoice);
+        compChoice= (int)((Math.random())*3+1);
+        System.out.println("Computer choice: " + compChoice);
+
+        if (userChoice == compChoice)
+        { 
+            System.out.println("DRAW");
         }
-        
+        if (userChoice == 1 && compChoice == 2)
+        {
+            System.out.println("LOSE");
+        }
+        if (userChoice == 1 && compChoice == 3)
+        {
+            System.out.println("WIN");
+        }
+        if (userChoice == 2 && compChoice == 1)
+        {
+            System.out.println("WIN");
+        }
+        if (userChoice == 2 && compChoice == 3)
+        {
+            System.out.println("LOSE");
+        }
+        if (userChoice == 3 && compChoice == 1)
+        {
+            System.out.println("LOSE");
+        }
+        if (userChoice == 3 && compChoice == 2)
+        {
+            System.out.println("WIN");
+        }
+
+        repaint();
+
+    }
+
+    public void highlightEffect()
+    {
+
     }
 
     public void mouseClicked(MouseEvent me) {
@@ -132,36 +176,31 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
             if ((me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 50 && me.getY() <= 157))
             {
                 userChoice = 1;
-                choiceMade = true;
             }
             if ((me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 175 && me.getY() <= 279))
             {
                 userChoice = 2;
-                choiceMade = true;
             }
             if ((me.getX() >= 50 && me.getX() <= 121) && (me.getY() >= 300 && me.getY() <= 405))
             {
                 userChoice = 3;
-                choiceMade = true;
             }
-            repaint();
+            choiceMade = true;
+            choiceLogic();
+
         }
     }
 
     public void mousePressed(MouseEvent me) {
-
     }
 
     public void mouseReleased(MouseEvent me) {
-
     }
 
     public void mouseEntered(MouseEvent me) {
-
     }
 
     public void mouseExited(MouseEvent me) {
-
     }
 
     public void mouseMoved(MouseEvent me){
