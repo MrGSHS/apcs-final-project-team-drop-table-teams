@@ -47,36 +47,35 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     {
         super.paintComponent(g);
         //if (!end){
-            try {
-                x = ImageIO.read(new File("x.png"));
-                o = ImageIO.read(new File("o.png"));
-            }
-            catch (IOException e){
-                System.out.println("Image could not be read");
-                System.exit(1);
-            }
-            setBackground(Color.lightGray);
-            g.setColor(Color.black);
-            for (int i = 0; i < s; i++)
-                for (int j = 0; j < s; j++)
-                    if (i == mX && j == mY && board[j][i] == 0){
-                        ctr++;
-                        board[j][i] = ctr%2+1;
-                    }
-            for (int i = 0; i < board.length; i++) 
-                for (int j = 0; j < board[0].length; j++)
-                    if (board[j][i] == 1)
-                        g.drawImage(x,i*500/s,j*500/s,500/s,500/s,null);
-                    else if (board[j][i] == 2)
-                        g.drawImage(o,i*500/s,j*500/s,500/s,500/s,null);
-            for (int i = 1; i < s; i++) 
-                for (int j = 1; j < s; j++) {
-                    g.fillRect(0, i * (getHeight() / s) - 10, 500, 20);
-                    g.fillRect(j * (getWidth() / s) - 10, 0, 20, 500);
+        try {
+            x = ImageIO.read(new File("x.png"));
+            o = ImageIO.read(new File("o.png"));
+        }
+        catch (IOException e){
+            System.out.println("Image could not be read");
+            System.exit(1);
+        }
+        setBackground(Color.lightGray);
+        g.setColor(Color.black);
+        for (int i = 0; i < s; i++)
+            for (int j = 0; j < s; j++)
+                if (i == mX && j == mY && board[j][i] == 0){
+                    ctr++;
+                    board[j][i] = (ctr-1)%2+1;
                 }
+        for (int i = 0; i < s; i++) 
+            for (int j = 0; j < s; j++)
+                if (board[j][i] == 2)
+                    g.drawImage(x,i*getWidth()/s+5,j*getHeight()/s+5,getWidth()/(s+1),getHeight()/(s+1),null);
+                else if (board[j][i] == 1)
+                    g.drawImage(o,i*getWidth()/s+5,j*getHeight()/s+5,getWidth()/(s+1),getHeight()/(s+1),null);
+        for (int i = 1; i < s; i++) 
+            for (int j = 1; j < s; j++) {
+                g.fillRect(0, i * (getHeight() / s), 500, 1);
+                g.fillRect(j * (getWidth() / s), 0, 1, 500);
+            }
         //}
-        System.out.print(ctr);
-        int w = checkWinner(ctr%2+1);
+        int w = checkWinner();
         if (w != 0){
             Font f = new Font("Arial", Font.PLAIN, 48);
             g.setFont(f);
@@ -87,34 +86,42 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
             end = true;
             g.drawString("Tie",225,250);
         }
-
     }
 
-    public int checkWinner(int w)
+    public int checkWinner()
     {
         boolean win = true;
-        for (int i = 0; i < s; i++)
+        int w = board[0][0];
+        for (int i = 0; i < s; i++){
+            w = board[i][0];
             for (int j = 0; j < s; j++)
                 if (board[i][j] != w)
                     win = false;
-        if (win)
-            return w;
+            if (win)
+                return w;
+            win = true;
+        }
         win = true;
-        for (int j = 0; j < s; j++)
-            for (int i = 0; i < s; i++)
-                if (board[i][j] != w)
+        for (int i = 0; i < s; i++){
+            w = board[0][i];
+            for (int j = 0; j < s; j++)
+                if (board[j][i] != w)
                     win = false;
-        if (win)
-            return w;
+            if (win)
+                return w;
+            win = true;
+        }
         win = true;
+        w = board[0][0];
         for (int k = 0; k < s; k++)
             if (board[k][k] != w)
                 win = false;
         if (win)
             return w;
         win = true;
-        for (int l = s-1; l >= 0; l--)
-            if (board[l][s-l-1] != w)
+        w = board[s-1][0];
+        for (int l = 0; l < s; l++)
+            if (board[l][s-1-l] != w)
                 win = false;
         if (win)
             return w;
