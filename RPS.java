@@ -28,6 +28,10 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
     private boolean choiceMade = false;
     private int userChoice;
     private int compChoice;
+    private int userScore = 0;
+    private int compScore = 0;
+    private String result;
+    private int iresult = 0;
 
     public RPS() {
         addMouseListener(this);
@@ -66,6 +70,9 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
             System.out.println("Image could not be read");
             System.exit(1);
         }
+        
+        
+        
         if (!choiceMade)
         {
             if (!isHoveringOverRock)
@@ -87,16 +94,17 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         }
         else
         {
+            
+            g.setColor(Color.lightGray);
+            g.fillRect(200,400,100,100);
+            g.setColor(Color.red);
+            g.drawRect(200,400,100,100);
+            g.setColor(Color.black);
+            g.drawString("Back",235,440);
+            choiceLogic();
             if (userChoice == 1)
             {
-                int x = 50;
-                int y = 50;
-                while (x<=213 && y<=105)
-                {
-                    g.drawImage(userRock, x , y, null);
-                    x++;
-                    y++;
-                }
+                g.drawImage(userRock, 213 ,105, null);
             }
             if (userChoice == 2)
             {
@@ -118,50 +126,76 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
             {
                 g.drawImage(userScissors, 213, 250, null);
             }
-
+            
+            if (iresult == 1){
+                g.drawString(result,235,100);
+            }
+            else if(iresult == 2){
+                g.drawString(result,235,100);
+                userScore++;
+            }
+            else if (iresult == 3){
+                g.drawString(result,235,100);
+                compScore++;
+            }
+           
+            if ( userScore == 2){
+                
+            }
+            else if( compScore == 2){
+            
+            }
+            
+            
+            
         }
-
+        
+        
+        g.setColor(Color.black);
+        g.drawString("Player 1", 10, 20);
+        g.drawString("Computer", 420, 20);
+        g.drawString(""+userScore, 30, 450);
+        g.drawString(""+compScore, 450, 450);
     }
     public void choiceLogic()
     {
-        //choice 1 is rock
-        //choice 2 is paper
-        //choice 3 is scissors
-
-        System.out.println("User choice: " + userChoice);
-        compChoice= (int)((Math.random())*3+1);
-        System.out.println("Computer choice: " + compChoice);
 
         if (userChoice == compChoice)
         { 
-            System.out.println("DRAW");
+            result = "DRAW";
+            iresult = 1;
         }
         if (userChoice == 1 && compChoice == 2)
         {
-            System.out.println("LOSE");
+            result = "LOSE";
+            iresult = 3;
         }
         if (userChoice == 1 && compChoice == 3)
         {
-            System.out.println("WIN");
+            result = "WIN";
+            iresult = 2;
         }
         if (userChoice == 2 && compChoice == 1)
         {
-            System.out.println("WIN");
+            result = "WIN";
+            iresult = 2;
         }
         if (userChoice == 2 && compChoice == 3)
         {
-            System.out.println("LOSE");
+            result = "LOSE";
+            iresult = 3;
         }
         if (userChoice == 3 && compChoice == 1)
         {
-            System.out.println("LOSE");
+            result = "LOSE";
+            iresult = 3;
         }
         if (userChoice == 3 && compChoice == 2)
         {
-            System.out.println("WIN");
+            result = "WIN";
+            iresult = 2;
         }
 
-        repaint();
 
     }
 
@@ -171,27 +205,33 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
     }
 
     public void mouseClicked(MouseEvent me) {
+        
+    }
+
+    public void mousePressed(MouseEvent me) {
         if (!choiceMade)
         {
             if ((me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 50 && me.getY() <= 157))
             {
                 userChoice = 1;
+                choiceMade = true;
             }
             if ((me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 175 && me.getY() <= 279))
             {
                 userChoice = 2;
+                choiceMade = true;
             }
             if ((me.getX() >= 50 && me.getX() <= 121) && (me.getY() >= 300 && me.getY() <= 405))
             {
                 userChoice = 3;
+                choiceMade = true;
             }
-            choiceMade = true;
-            choiceLogic();
-
+            repaint();
         }
-    }
-
-    public void mousePressed(MouseEvent me) {
+        else if( me.getX() < 300 && me.getX() > 200 && me.getY() > 400){
+            choiceMade = false;
+            repaint();
+        }
     }
 
     public void mouseReleased(MouseEvent me) {
@@ -204,10 +244,11 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
     }
 
     public void mouseMoved(MouseEvent me){
+        if (!choiceMade){
         isHoveringOverRock = (me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 50 && me.getY() <= 157);
         isHoveringOverPaper = (me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 175 && me.getY() <= 279);
         isHoveringOverScissors  = (me.getX() >= 50 && me.getX() <= 121) && (me.getY() >= 300 && me.getY() <= 405);
-        repaint();
+        repaint();}
     }
 
     public void mouseDragged(MouseEvent me){

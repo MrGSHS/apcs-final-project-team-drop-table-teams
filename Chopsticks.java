@@ -78,7 +78,7 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
             g.setColor(Color.blue);
             g.drawImage(P2Win,-180, 200, null);
             
-            g.setColor(Color.lightGray);
+            g.setColor(Color.white);
             g.fillRect(400,400,100,100);
             
             g.setColor(Color.red);
@@ -91,18 +91,18 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
         if (win == false){
             
             
-            g.setColor(Color.lightGray);
+            g.setColor(Color.white);
             g.fillRect(200,10,70,30);
             g.setColor(Color.blue);
             g.drawRect(200,10,70,30);
             g.drawString("Player 1", 210, 30);
             
-            g.setColor(Color.lightGray);
+            g.setColor(Color.white);
             g.fillRect(200,438,70,30);
             g.setColor(Color.red);
             g.drawRect(200,438,70,30);
             g.drawString("Player 2", 210, 458);
-            g.setColor(Color.lightGray);
+            g.setColor(Color.white);
             
             if( mouseC % 4 == 0 ){
                 g.fillRect(140,210,190,30);
