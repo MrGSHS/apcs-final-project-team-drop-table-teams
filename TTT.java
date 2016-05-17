@@ -17,25 +17,26 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     //private static final long serialVersionUID = 1L;
     private boolean end = false;
     private BufferedImage x, o;
-    private int mX, mY, ctr, s;
+    private int mX, mY, ctr, s = 0;
     private int[][] board;
     private Timer timer;
+    JTextField tf;
     public TTT() 
     {
-        board = new int[3][3];
-        s = 3;
-        init();
+        tf = new JTextField(2);
+        tf.addActionListener(this);
     }
 
     public TTT(int s)
     {
-        board = new int[s][s];
-        this.s = s;
+        
         init();
     }
 
     public void init()
     {
+        board = new int[s][s];
+        this.s = s;
         ctr = 0;
         mX = mY = s+1;
         timer = new Timer(16, this);
@@ -163,6 +164,9 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
+        if (s == 0){
+            String text = tf.getText();
+        }
         repaint();
     }
 }
