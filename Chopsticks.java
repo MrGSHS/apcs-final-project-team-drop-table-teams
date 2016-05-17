@@ -57,7 +57,7 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
             System.exit(1);
         }
         
-        g.drawImage(BackGround,0,0, null);
+        g.drawImage(BackGround,0,0, 500, 500, null);
         
         if((p3 == 0 && p4 == 0)){
             g.drawImage(ChopWin,10, 40, null);

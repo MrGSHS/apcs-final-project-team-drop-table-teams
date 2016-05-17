@@ -52,8 +52,8 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         BufferedImage compRock = null;
         BufferedImage compPaper = null;
         BufferedImage compScissors = null;
-
-        try 
+        
+         try 
         {
             userRock = ImageIO.read(new File("Rock.png"));
             userRockHighlight = ImageIO.read(new File("highlightedRock.png"));
@@ -70,8 +70,6 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
             System.out.println("Image could not be read");
             System.exit(1);
         }
-        
-        
         
         if (!choiceMade)
         {
