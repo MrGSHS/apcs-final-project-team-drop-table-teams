@@ -78,7 +78,7 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
             g.setColor(Color.blue);
             g.drawImage(P2Win,-180, 200, null);
             
-            g.setColor(Color.white);
+            g.setColor(Color.lightGray);
             g.fillRect(400,400,100,100);
             
             g.setColor(Color.red);

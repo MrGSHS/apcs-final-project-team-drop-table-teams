@@ -94,14 +94,8 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         }
         else
         {
-            
-            g.setColor(Color.lightGray);
-            g.fillRect(200,400,100,100);
-            g.setColor(Color.red);
-            g.drawRect(200,400,100,100);
-            g.setColor(Color.black);
-            g.drawString("Back",235,440);
             choiceLogic();
+            
             if (userChoice == 1)
             {
                 g.drawImage(userRock, 213 ,105, null);
@@ -128,22 +122,46 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
             }
             
             if (iresult == 1){
-                g.drawString(result,235,100);
+                g.drawString(result,235,20);
             }
             else if(iresult == 2){
-                g.drawString(result,235,100);
+                g.drawString(result,235,20);
                 userScore++;
             }
             else if (iresult == 3){
-                g.drawString(result,235,100);
+                g.drawString(result,235, 20);
                 compScore++;
             }
            
             if ( userScore == 2){
-                
+                g.drawString("YOU WIN",225, 420);
+                g.setColor(Color.lightGray);
+                g.fillRect(400,400,100,100);
+            
+                g.setColor(Color.red);
+                g.drawLine(400,400,400,500);
+                g.drawLine(400,400,500,400);
+                g.drawString("Menu",430,440);
             }
             else if( compScore == 2){
+                g.drawString("YOU LOSE",225, 420);
+                g.setColor(Color.lightGray);
+                g.fillRect(400,400,100,100);
             
+                g.setColor(Color.red);
+                g.drawLine(400,400,400,500);
+                g.drawLine(400,400,500,400);
+                g.drawString("Menu",430,440);
+            }
+            else{
+                g.setColor(Color.red);
+                g.setColor(Color.lightGray);
+                g.fillRect(200,400,100,100);
+                g.setColor(Color.red);
+                g.drawRect(200,400,100,100);
+                g.setColor(Color.black);
+                g.drawString("Back",235,440);
+                choiceLogic();
             }
             
             
@@ -154,12 +172,12 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         g.setColor(Color.black);
         g.drawString("Player 1", 10, 20);
         g.drawString("Computer", 420, 20);
-        g.drawString(""+userScore, 30, 450);
-        g.drawString(""+compScore, 450, 450);
+        g.drawString(""+userScore, 30, 40);
+        g.drawString(""+compScore, 450, 40);
     }
     public void choiceLogic()
     {
-
+        compChoice= (int)((Math.random())*3+1);
         if (userChoice == compChoice)
         { 
             result = "DRAW";
@@ -231,6 +249,10 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         else if( me.getX() < 300 && me.getX() > 200 && me.getY() > 400){
             choiceMade = false;
             repaint();
+        }
+        else if(me.getX() > 400 && me.getY() > 400){
+            String[]a = new String[0];
+            GameMenu.main(a);
         }
     }
 
