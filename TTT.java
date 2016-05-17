@@ -15,22 +15,17 @@ import java.awt.Font.*;
  */
 public class TTT extends JPanel implements MouseListener, ActionListener {
     //private static final long serialVersionUID = 1L;
-    private boolean end = false;
+    private boolean end = false, start = false;
     private BufferedImage x, o;
     private int mX, mY, ctr, s = 0;
     private int[][] board;
     private Timer timer;
-    JTextField tf;
+    private JTextField tf;
     public TTT() 
     {
-        tf = new JTextField(2);
+        tf = new JTextField(1);
         tf.addActionListener(this);
-    }
-
-    public TTT(int s)
-    {
-        
-        init();
+        this.add(tf);
     }
 
     public void init()
@@ -47,45 +42,50 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     public void paintComponent(Graphics g) 
     {
         super.paintComponent(g);
-        //if (!end){
-        try {
-            x = ImageIO.read(new File("x.png"));
-            o = ImageIO.read(new File("o.png"));
-        }
-        catch (IOException e){
-            System.out.println("Image could not be read");
-            System.exit(1);
-        }
-        setBackground(Color.lightGray);
-        g.setColor(Color.black);
-        for (int i = 0; i < s; i++)
-            for (int j = 0; j < s; j++)
-                if (i == mX && j == mY && board[j][i] == 0){
-                    ctr++;
-                    board[j][i] = (ctr-1)%2+1;
-                }
-        for (int i = 0; i < s; i++) 
-            for (int j = 0; j < s; j++)
-                if (board[j][i] == 2)
-                    g.drawImage(x,i*getWidth()/s+5,j*getHeight()/s+5,getWidth()/(s+1),getHeight()/(s+1),null);
-                else if (board[j][i] == 1)
-                    g.drawImage(o,i*getWidth()/s+5,j*getHeight()/s+5,getWidth()/(s+1),getHeight()/(s+1),null);
-        for (int i = 1; i < s; i++) 
-            for (int j = 1; j < s; j++) {
-                g.fillRect(0, i * (getHeight() / s), 500, 1);
-                g.fillRect(j * (getWidth() / s), 0, 1, 500);
+        Font f = new Font("Arial", Font.PLAIN, 48);
+        g.setFont(f);
+        if (start){
+            try {
+                x = ImageIO.read(new File("x.png"));
+                o = ImageIO.read(new File("o.png"));
             }
-        //}
-        int w = checkWinner();
-        if (w != 0){
-            Font f = new Font("Arial", Font.PLAIN, 48);
-            g.setFont(f);
-            end = true;
-            g.drawString("Player "+w+" wins",100,100);
+            catch (IOException e){
+                System.out.println("Image could not be read");
+                System.exit(1);
+            }
+            setBackground(Color.lightGray);
+            g.setColor(Color.black);
+            for (int i = 0; i < s; i++)
+                for (int j = 0; j < s; j++)
+                    if (i == mX && j == mY && board[j][i] == 0){
+                        ctr++;
+                        board[j][i] = (ctr-1)%2+1;
+                    }
+            for (int i = 0; i < s; i++) 
+                for (int j = 0; j < s; j++)
+                    if (board[j][i] == 2)
+                        g.drawImage(x,i*getWidth()/s,j*getHeight()/s,getWidth()/(s+1),getHeight()/(s+1),null);
+                    else if (board[j][i] == 1)
+                        g.drawImage(o,i*getWidth()/s,j*getHeight()/s,getWidth()/(s+1),getHeight()/(s+1),null);
+            for (int i = 1; i < s; i++) 
+                for (int j = 1; j < s; j++) {
+                    g.fillRect(0, i * (getHeight() / s), 500, 1);
+                    g.fillRect(j * (getWidth() / s), 0, 1, 500);
+                }
         }
-        else if (checkTie()){
-            end = true;
-            g.drawString("Tie",225,250);
+        else{
+            g.drawString("Tic Tac Toe",100,20);
+        }
+        if (ctr > s){
+            int w = checkWinner();
+            if (w != 0){
+                end = true;
+                g.drawString("Player "+w+" wins",100,100);
+            }
+            else if (checkTie()){
+                end = true;
+                g.drawString("Tie",225,250);
+            }
         }
     }
 
@@ -166,6 +166,15 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (s == 0){
             String text = tf.getText();
+            try{
+                s = Integer.parseInt(text);
+            }
+            catch (NumberFormatException e){
+                return; 
+            }
+            tf.removeActionListener(this);
+            this.remove(tf);
+            init();
         }
         repaint();
     }
