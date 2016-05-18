@@ -20,12 +20,18 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     private int mX, mY, ctr, s = 0;
     private int[][] board;
     private Timer timer;
-    private JTextField tf;
+    private JComboBox<String> cb;
+    private JPanel wrapperPanel;
     public TTT() 
     {
-        tf = new JTextField(1);
-        tf.addActionListener(this);
-        this.add(tf);
+        String[] sizeOptions = { "3", "4", "5", "6", "7" };
+        cb = new JComboBox<>(sizeOptions);
+        cb.setSelectedIndex(0);
+        cb.addActionListener(this);
+        wrapperPanel = new JPanel(new GridBagLayout());
+        wrapperPanel.setPreferredSize(new Dimension(350, 400));
+        wrapperPanel.add(cb);
+        this.add(wrapperPanel);
     }
 
     public void init()
@@ -36,6 +42,7 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
         mX = mY = s+1;
         timer = new Timer(16, this);
         timer.start();
+        start = true;
         addMouseListener(this);
     }
 
@@ -74,7 +81,7 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
                 }
         }
         else{
-            g.drawString("Tic Tac Toe",100,20);
+            g.drawString("Tic Tac Toe",100,100);
         }
         if (ctr > s){
             int w = checkWinner();
@@ -165,15 +172,12 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         if (s == 0){
-            String text = tf.getText();
-            try{
-                s = Integer.parseInt(text);
-            }
-            catch (NumberFormatException e){
-                return; 
-            }
-            tf.removeActionListener(this);
-            this.remove(tf);
+            JComboBox cb1 = (JComboBox)ae.getSource();
+            String size = (String)cb1.getSelectedItem();
+            s = Integer.parseInt(size);
+            cb.removeActionListener(this);
+            this.remove(wrapperPanel);
+            remove(cb);
             init();
         }
         repaint();
