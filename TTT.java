@@ -21,17 +21,28 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     private int[][] board;
     private Timer timer;
     private JComboBox<String> cb;
-    private JPanel wrapperPanel;
+    private megaTTT mTTT;
     public TTT() 
+    {
+        String[] versionOptions = {"Normal","Mega"};
+        cb = new JComboBox<>(versionOptions);
+        cb.setSelectedIndex(0);
+        cb.addActionListener(this);
+        this.add(cb);
+    }
+
+    public TTT(int size)
+    {
+        s = size;
+    }
+    
+    public void initn()
     {
         String[] sizeOptions = { "3", "4", "5", "6", "7" };
         cb = new JComboBox<>(sizeOptions);
         cb.setSelectedIndex(0);
         cb.addActionListener(this);
-        wrapperPanel = new JPanel(new GridBagLayout());
-        wrapperPanel.setPreferredSize(new Dimension(350, 400));
-        wrapperPanel.add(cb);
-        this.add(wrapperPanel);
+        this.add(cb);
     }
 
     public void init()
@@ -46,12 +57,17 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
         addMouseListener(this);
     }
 
+    public void initm()
+    {
+        mTTT = new megaTTT();
+    }
+
     public void paintComponent(Graphics g) 
     {
         super.paintComponent(g);
         Font f = new Font("Arial", Font.PLAIN, 48);
         g.setFont(f);
-        if (start){
+        if (start){ // normal TTT gameplay
             try {
                 x = ImageIO.read(new File("x.png"));
                 o = ImageIO.read(new File("o.png"));
@@ -80,10 +96,10 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
                     g.fillRect(j * (getWidth() / s), 0, 1, 500);
                 }
         }
-        else{
-            g.drawString("Tic Tac Toe",100,100);
+        else{ // intro of normal
+            g.drawString("Tic Tac Toe",100,300);
         }
-        if (ctr > s){
+        if (ctr > s){ //general winning check
             int w = checkWinner();
             if (w != 0){
                 end = true;
@@ -171,15 +187,60 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
-        if (s == 0){
+        if (!start){
             JComboBox cb1 = (JComboBox)ae.getSource();
-            String size = (String)cb1.getSelectedItem();
-            s = Integer.parseInt(size);
+            String result = (String)cb1.getSelectedItem();
             cb.removeActionListener(this);
-            this.remove(wrapperPanel);
             remove(cb);
+            if (result.equals("Normal"))
+                initn();
+            else if (result.equals("Mega"))
+                initm();
+            else
+                s = Integer.parseInt(result);
             init();
         }
+        repaint();
+    }
+
+}
+class megaTTT extends JPanel implements MouseListener, ActionListener
+{
+    private TTT[][] board;
+    public megaTTT()
+    {
+        board = new TTT[3][3];
+        for (int i = 0; i < board.length; i++)
+            for (int j = 0; j < board[0].length; j++)
+                board[i][j] = new TTT(3);
+    }
+
+    public void paintComponent (Graphics g)
+    {
+        super.paintComponent(g);
+    }
+
+    public void mouseClicked(MouseEvent me) {
+
+    }
+
+    public void mousePressed(MouseEvent me) {
+
+    }
+
+    public void mouseReleased(MouseEvent me) {
+      
+    }
+
+    public void mouseEntered(MouseEvent me) {
+
+    }
+
+    public void mouseExited(MouseEvent me) {
+
+    }
+
+    public void actionPerformed(ActionEvent ae) {
         repaint();
     }
 }
