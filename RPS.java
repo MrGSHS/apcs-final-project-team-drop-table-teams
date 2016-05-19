@@ -33,27 +33,21 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
     private String result;
     private int iresult = 0;
 
+    //images
+    BufferedImage userRock= null;
+    BufferedImage userRockHighlight = null;
+    BufferedImage userPaper=null;
+    BufferedImage userPaperHighlight = null;
+    BufferedImage userScissors= null;
+    BufferedImage userScissorsHighlight = null;
+    BufferedImage compRock = null;
+    BufferedImage compPaper = null;
+    BufferedImage compScissors = null;
+
     public RPS() {
         addMouseListener(this);
         addMouseMotionListener(this);
-    }
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        int w = getWidth();
-        int h = getHeight();
-        setBackground(new Color(0,255,225));
-        BufferedImage userRock= null;
-        BufferedImage userRockHighlight = null;
-        BufferedImage userPaper=null;
-        BufferedImage userPaperHighlight = null;
-        BufferedImage userScissors= null;
-        BufferedImage userScissorsHighlight = null;
-        BufferedImage compRock = null;
-        BufferedImage compPaper = null;
-        BufferedImage compScissors = null;
-        
-         try 
+        try 
         {
             userRock = ImageIO.read(new File("Rock.png"));
             userRockHighlight = ImageIO.read(new File("highlightedRock.png"));
@@ -70,7 +64,33 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
             System.out.println("Image could not be read");
             System.exit(1);
         }
-        
+    }
+
+    public void paintComponent(Graphics g) {
+        int rockLocX;
+        int rockLocY;
+        int paperLocX;
+        int paperLocY;
+        int scissorsLocX;
+        int scissorsLocy;
+        super.paintComponent(g);
+        System.out.println("Paint");
+        int w = getWidth();
+        int h = getHeight();
+        setBackground(new Color(0,255,225));
+        /*
+        BufferedImage userRock= null;
+        BufferedImage userRockHighlight = null;
+        BufferedImage userPaper=null;
+        BufferedImage userPaperHighlight = null;
+        BufferedImage userScissors= null;
+        BufferedImage userScissorsHighlight = null;
+        BufferedImage compRock = null;
+        BufferedImage compPaper = null;
+        BufferedImage compScissors = null;
+         */
+
+
         if (!choiceMade)
         {
             if (!isHoveringOverRock)
@@ -92,88 +112,17 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
         }
         else
         {
-            choiceLogic();
-            
-            if (userChoice == 1)
-            {
-                g.drawImage(userRock, 213 ,105, null);
-            }
-            if (userChoice == 2)
-            {
-                g.drawImage(userPaper, 213 ,105, null);
-            }
-            if (userChoice == 3)
-            {
-                g.drawImage(userScissors, 213 ,105, null);
-            }
-            if (compChoice == 1)
-            {
-                g.drawImage(userRock, 213, 250, null);
-            }
-            if (compChoice == 2)
-            {
-                g.drawImage(userPaper, 213, 250, null);
-            }
-            if (compChoice == 3)
-            {
-                g.drawImage(userScissors, 213, 250, null);
-            }
-            
-            if (iresult == 1){
-                g.drawString(result,235,20);
-            }
-            else if(iresult == 2){
-                g.drawString(result,235,20);
-                userScore++;
-            }
-            else if (iresult == 3){
-                g.drawString(result,235, 20);
-                compScore++;
-            }
-           
-            if ( userScore == 2){
-                g.drawString("YOU WIN",225, 420);
-                g.setColor(Color.lightGray);
-                g.fillRect(400,400,100,100);
-            
-                g.setColor(Color.red);
-                g.drawLine(400,400,400,500);
-                g.drawLine(400,400,500,400);
-                g.drawString("Menu",430,440);
-            }
-            else if( compScore == 2){
-                g.drawString("YOU LOSE",225, 420);
-                g.setColor(Color.lightGray);
-                g.fillRect(400,400,100,100);
-            
-                g.setColor(Color.red);
-                g.drawLine(400,400,400,500);
-                g.drawLine(400,400,500,400);
-                g.drawString("Menu",430,440);
-            }
-            else{
-                g.setColor(Color.red);
-                g.setColor(Color.lightGray);
-                g.fillRect(200,400,100,100);
-                g.setColor(Color.red);
-                g.drawRect(200,400,100,100);
-                g.setColor(Color.black);
-                g.drawString("Back",235,440);
-                choiceLogic();
-            }
-            
-            
-            
+            choiceLogic(g);
         }
-        
-        
         g.setColor(Color.black);
         g.drawString("Player 1", 10, 20);
         g.drawString("Computer", 420, 20);
         g.drawString(""+userScore, 30, 40);
         g.drawString(""+compScore, 450, 40);
+
     }
-    public void choiceLogic()
+
+    public void choiceLogic(Graphics g)
     {
         compChoice= (int)((Math.random())*3+1);
         if (userChoice == compChoice)
@@ -212,6 +161,80 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
             iresult = 2;
         }
 
+        //Second Part
+        if (userChoice == 1)
+        {
+            g.drawImage(userRock, 213 ,105, null);
+        }
+        if (userChoice == 2)
+        {
+            g.drawImage(userPaper, 213 ,105, null);
+        }
+        if (userChoice == 3)
+        {
+            g.drawImage(userScissors, 213 ,105, null);
+        }
+        if (compChoice == 1)
+        {
+            g.drawImage(userRock, 213, 250, null);
+        }
+        if (compChoice == 2)
+        {
+            g.drawImage(userPaper, 213, 250, null);
+        }
+        if (compChoice == 3)
+        {
+            g.drawImage(userScissors, 213, 250, null);
+        }
+
+        if (iresult == 1){
+            g.drawString(result,235,20);
+        }
+        else if(iresult == 2){
+            g.drawString(result,235,20);
+            userScore++;
+        }
+        else if (iresult == 3){
+            g.drawString(result,235, 20);
+            compScore++;
+        }
+
+        if ( userScore == 2){
+            g.drawString("YOU WIN",225, 420);
+            g.setColor(Color.lightGray);
+            g.fillRect(400,400,100,100);
+
+            g.setColor(Color.red);
+            g.drawLine(400,400,400,500);
+            g.drawLine(400,400,500,400);
+            g.drawString("Menu",430,440);
+        }
+        else if( compScore == 2){
+            g.drawString("YOU LOSE",225, 420);
+            g.setColor(Color.lightGray);
+            g.fillRect(400,400,100,100);
+
+            g.setColor(Color.red);
+            g.drawLine(400,400,400,500);
+            g.drawLine(400,400,500,400);
+            g.drawString("Menu",430,440);
+        }
+        else{
+            g.setColor(Color.red);
+            g.setColor(Color.lightGray);
+            g.fillRect(200,400,100,100);
+            g.setColor(Color.red);
+            g.drawRect(200,400,100,100);
+            g.setColor(Color.black);
+            g.drawString("Back",235,440);
+            //choiceLogic(g);
+        }            
+
+        g.setColor(Color.black);
+        g.drawString("Player 1", 10, 20);
+        g.drawString("Computer", 420, 20);
+        g.drawString(""+userScore, 30, 40);
+        g.drawString(""+compScore, 450, 40);
 
     }
 
@@ -221,7 +244,7 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
     }
 
     public void mouseClicked(MouseEvent me) {
-        
+
     }
 
     public void mousePressed(MouseEvent me) {
@@ -265,10 +288,11 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
 
     public void mouseMoved(MouseEvent me){
         if (!choiceMade){
-        isHoveringOverRock = (me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 50 && me.getY() <= 157);
-        isHoveringOverPaper = (me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 175 && me.getY() <= 279);
-        isHoveringOverScissors  = (me.getX() >= 50 && me.getX() <= 121) && (me.getY() >= 300 && me.getY() <= 405);
-        repaint();}
+            isHoveringOverRock = (me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 50 && me.getY() <= 157);
+            isHoveringOverPaper = (me.getX() >= 50 && me.getX() <= 125) && (me.getY() >= 175 && me.getY() <= 279);
+            isHoveringOverScissors  = (me.getX() >= 50 && me.getX() <= 121) && (me.getY() >= 300 && me.getY() <= 405);
+            repaint();
+        }
     }
 
     public void mouseDragged(MouseEvent me){
