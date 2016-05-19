@@ -64,6 +64,7 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
             System.out.println("Image could not be read");
             System.exit(1);
         }
+
     }
 
     public void paintComponent(Graphics g) {
@@ -91,6 +92,7 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
          */
 
 
+ 
         if (!choiceMade)
         {
             if (!isHoveringOverRock)

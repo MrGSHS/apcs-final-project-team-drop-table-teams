@@ -8,6 +8,10 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.image.*;
+import java.io.File;
+import javax.imageio.*;
+import java.io.*;
 import static java.awt.GraphicsDevice.WindowTranslucency.*;
 
 public class GameMenu extends JPanel implements ActionListener {
@@ -31,8 +35,14 @@ public class GameMenu extends JPanel implements ActionListener {
         frame.setVisible(true);
 
     }
-
+    
+    public void paintComponent(Graphics g) {
+        setBackground(Color.blue);
+    }
+    
     public GameMenu() {
+        
+        
         // this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
         RPS = new JButton("Rock Paper Scissors");
         // RPS.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -60,7 +70,8 @@ public class GameMenu extends JPanel implements ActionListener {
         wrapperPanel = new JPanel(new GridBagLayout());
         wrapperPanel.setPreferredSize(new Dimension(350, 400));
         wrapperPanel.add(buttonPanel);
-
+        wrapperPanel.setBackground(Color.blue);
+        buttonPanel.setBackground(Color.blue);
         this.add(wrapperPanel);
     }
 
