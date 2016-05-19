@@ -27,21 +27,15 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
     private int p2 = 1;
     private int p3 = 1;
     private int p4 = 1;  
+    
+    BufferedImage ChopUp = null;
+    BufferedImage ChopDown = null;
+    BufferedImage ChopWin = null;
+    BufferedImage P1Win = null;
+    BufferedImage P2Win = null;
+    BufferedImage BackGround = null;
     public Chopsticks() {
         addMouseListener(this);
-    }
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        int w = getWidth();
-        int h = getHeight();
-        
-        BufferedImage ChopUp = null;
-        BufferedImage ChopDown = null;
-        BufferedImage ChopWin = null;
-        BufferedImage P1Win = null;
-        BufferedImage P2Win = null;
-        BufferedImage BackGround = null;
         try 
         {
             ChopUp = ImageIO.read(new File("c2.png"));
@@ -56,6 +50,12 @@ public class Chopsticks extends JPanel implements MouseListener, ActionListener 
             System.out.println("Image could not be read");
             System.exit(1);
         }
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        int w = getWidth();
+        int h = getHeight();
         
         g.drawImage(BackGround,0,0, 500, 500, null);
         

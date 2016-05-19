@@ -71,6 +71,8 @@ public class RPS extends JPanel implements MouseListener, MouseMotionListener{
             System.exit(1);
         }
         
+        
+        
         if (!choiceMade)
         {
             if (!isHoveringOverRock)
