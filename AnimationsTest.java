@@ -15,18 +15,21 @@ public class AnimationsTest extends JPanel implements MouseListener, MouseMotion
 {
     private int rectX = 100;
     private int rectY = 100;
-    private boolean animateRect = false;
+    private boolean animateRect= false;
+    private int initialRectX = 100;
+    private int initialRectY = 100;
     public AnimationsTest()
     {
         addMouseListener(this);
         addMouseMotionListener(this);
-        Timer timer = new Timer(30, this);
+        Timer timer = new Timer(40, this);
         timer.start();
     }
 
     public void paintComponent(Graphics g)
     {
-        g.drawRect(rectX,rectY,100,100);
+        g.fillRect(rectX,rectY,100,100);
+        repaint();
     }
 
     public static void main(String[] args)
@@ -44,19 +47,56 @@ public class AnimationsTest extends JPanel implements MouseListener, MouseMotion
     //ActionListener
     public void actionPerformed(ActionEvent ae)
     {
-        if (animateRock)
+        if (animateRect)
         {
-            if (rectX <= 213)
+            if (initialRectX == 100 && initialRectY == 100)
             {
-                rectX++;
+                if (rectX < 300)
+                {
+                    rectX+=3;
+                }
+
+                if (rectX == 300)
+                {
+                    animateRect = false;
+                    
+                }
             }
-            if (rectY <= 105)
+            if (initialRectX == 301 && initialRectY == 100)
             {
-                rectY++;
+                if (rectY < 300)
+                {
+                    rectY+=3;
+                }
+                if (rectY == 300)
+                {
+                    animateRect = false;
+                   
+                }
+                
             }
-            if (rectX == 214 && rectY == 106)
+            if (initialRectX == 301 && initialRectY == 301)
             {
-                animateRock = false;
+                if (rectX > 100)
+                {
+                    rectX-=3;
+                }
+                if (rectX == 100)
+                {
+                    animateRect = false;
+                   
+                }
+            }
+            if (initialRectX == 100 && initialRectY == 301)
+            {
+                if (rectY > 100)
+                {
+                    rectY-=3;
+                }
+                if (rectY == 100)
+                {
+                    animateRect = false;
+                }
             }
         }
     }
@@ -64,9 +104,12 @@ public class AnimationsTest extends JPanel implements MouseListener, MouseMotion
     //MouseListener
     public void mouseClicked(MouseEvent me) 
     {
-        if ((me.getX >= rectX && me.getX <= rectX+100) && (me.getY >= rectY && me.getY <= rectY+100))
+        if ((me.getX() >= rectX && me.getX() <= rectX+100) && (me.getY() >= rectY && me.getY() <= rectY+100))
         {
-            animateRock = true;
+            initialRectX = rectX;
+            initialRectY = rectY;
+            animateRect = true;
+
         }
     }
 
