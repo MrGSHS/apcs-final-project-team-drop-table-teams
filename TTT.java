@@ -14,7 +14,7 @@ import java.awt.Font.*;
  */
 public class TTT extends JPanel implements MouseListener, ActionListener {
     //private static final long serialVersionUID = 1L;
-    private boolean end = false, start = false;
+    private boolean end = false, start = false, mega;
     private BufferedImage x, o;
     private int mX, mY, ctr, size = 0;
     private int[][] board;
@@ -23,12 +23,23 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     private JPanel wrapperPanel;
     public TTT() 
     {
-        String[] sizeOptions = { "3", "4", "5", "6", "7", "8", "9"};
-        cb = new JComboBox<>(sizeOptions);
+        String[] gameOptions = {"Normal","Mega"};
+        cb = new JComboBox<>(gameOptions);
         cb.setSelectedIndex(0);
         cb.addActionListener(this);
         this.add(cb);
     }
+
+    //public void normal()
+    //{
+    //mega = false;
+    //this.remove(cb);
+    //String[] sizeOptions = { "3", "4", "5", "6", "7", "8", "9"};
+    //cb = new JComboBox<>(sizeOptions);
+    //cb.setSelectedIndex(0);
+    //cb.addActionListener(this);
+    //this.add(cb1);
+    //}
 
     public void init()
     {
@@ -74,68 +85,88 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
                     g.fillRect(0, i * (getHeight() / size), 500, 1);
                     g.fillRect(j * (getWidth() / size), 0, 1, 500);
                 }
+            if (mega)
+                for (int i = 1; i < 3; i++) 
+                    for (int j = 1; j < 3; j++) {
+                        g.fillRect(0, i * (getHeight() / 3), 500, 5);
+                        g.fillRect(j * (getWidth() / 3), 0, 5, 500);
+                    }
         }
         else{
             g.drawString("Tic Tac Toe",100,100);
         }
+        if (mega){
+            for (int i = 0; i < size; i++){
+                for (int j = 0; j < size; j++){
+                    int[][] b = new int[3][3];
+                    for (int k = 0; k < 3; k++){
+                        for (int l = 0; l < 3; l++){
+                            b[l][k] = board[l*j][k*i];
+                        }
+                    }
+                    int w = checkWinner(b);
+                    
+                }
+            }
+        }
         if (ctr > size){
-            int w = checkWinner();
+            int w = checkWinner(board);
             if (w != 0){
                 end = true;
                 g.drawString("Player "+w+" wins",100,100);
             }
-            else if (checkTie()){
+            else if (checkTie(board)){
                 end = true;
                 g.drawString("Tie",225,250);
             }
         }
     }
 
-    public int checkWinner()
+    public int checkWinner(int[][] b)
     {
         boolean win = true;
-        int w = board[0][0];
-        for (int i = 0; i < size; i++){
-            w = board[i][0];
-            for (int j = 0; j < size; j++)
-                if (board[i][j] != w)
+        int w = b[0][0];
+        for (int i = 0; i < b.length; i++){
+            w = b[i][0];
+            for (int j = 0; j < b.length; j++)
+                if (b[i][j] != w)
                     win = false;
             if (win)
                 return w;
             win = true;
         }
         win = true;
-        for (int i = 0; i < size; i++){
-            w = board[0][i];
-            for (int j = 0; j < size; j++)
-                if (board[j][i] != w)
+        for (int i = 0; i < b.length; i++){
+            w = b[0][i];
+            for (int j = 0; j < b.length; j++)
+                if (b[j][i] != w)
                     win = false;
             if (win)
                 return w;
             win = true;
         }
         win = true;
-        w = board[0][0];
-        for (int k = 0; k < size; k++)
-            if (board[k][k] != w)
+        w = b[0][0];
+        for (int k = 0; k < b.length; k++)
+            if (b[k][k] != w)
                 win = false;
         if (win)
             return w;
         win = true;
-        w = board[size-1][0];
-        for (int l = 0; l < size; l++)
-            if (board[l][size-1-l] != w)
+        w = b[b.length-1][0];
+        for (int l = 0; l < b.length; l++)
+            if (b[l][b.length-1-l] != w)
                 win = false;
         if (win)
             return w;
         return 0;
     }
 
-    public boolean checkTie()
+    public boolean checkTie(int[][] b)
     {
-        for (int i = 0; i < size; i++)
-            for (int j = 0; j < size; j++)
-                if (board[i][j] == 0)
+        for (int i = 0; i < b.length; i++)
+            for (int j = 0; j < b.length; j++)
+                if (b[i][j] == 0)
                     return false;
         return true;
     }
@@ -166,10 +197,20 @@ public class TTT extends JPanel implements MouseListener, ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
-        if (size == 0){
+        if (!start){
             JComboBox cb1 = (JComboBox)ae.getSource();
-            String s = (String)cb1.getSelectedItem();
-            size = Integer.parseInt(s);
+            String r = (String)cb1.getSelectedItem();
+            if (r.equals("Normal")){
+                size = 3;
+                //normal();
+                mega = false;
+            }
+            else if (r.equals("Mega")){
+                size = 9;
+                mega = true;
+            }
+            else
+                size = Integer.parseInt(r);
             cb.removeActionListener(this);
             remove(cb);
             init();
