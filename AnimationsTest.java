@@ -53,45 +53,45 @@ public class AnimationsTest extends JPanel implements MouseListener, MouseMotion
             {
                 if (rectX < 300)
                 {
-                    rectX+=3;
+                    rectX+=5;
                 }
 
                 if (rectX == 300)
                 {
                     animateRect = false;
-                    
+
                 }
             }
-            if (initialRectX == 301 && initialRectY == 100)
+            if (initialRectX == 300 && initialRectY == 100)
             {
                 if (rectY < 300)
                 {
-                    rectY+=3;
+                    rectY+=5;
                 }
                 if (rectY == 300)
                 {
                     animateRect = false;
-                   
+
                 }
-                
+
             }
-            if (initialRectX == 301 && initialRectY == 301)
+            if (initialRectX == 300 && initialRectY == 300)
             {
                 if (rectX > 100)
                 {
-                    rectX-=3;
+                    rectX-=5;
                 }
                 if (rectX == 100)
                 {
                     animateRect = false;
-                   
+
                 }
             }
-            if (initialRectX == 100 && initialRectY == 301)
+            if (initialRectX == 100 && initialRectY == 300)
             {
                 if (rectY > 100)
                 {
-                    rectY-=3;
+                    rectY-=5;
                 }
                 if (rectY == 100)
                 {
@@ -104,12 +104,15 @@ public class AnimationsTest extends JPanel implements MouseListener, MouseMotion
     //MouseListener
     public void mouseClicked(MouseEvent me) 
     {
-        if ((me.getX() >= rectX && me.getX() <= rectX+100) && (me.getY() >= rectY && me.getY() <= rectY+100))
+        if (!animateRect)
         {
-            initialRectX = rectX;
-            initialRectY = rectY;
-            animateRect = true;
+            if ((me.getX() >= rectX && me.getX() <= rectX+100) && (me.getY() >= rectY && me.getY() <= rectY+100))
+            {
+                initialRectX = rectX;
+                initialRectY = rectY;
+                animateRect = true;
 
+            }
         }
     }
 
