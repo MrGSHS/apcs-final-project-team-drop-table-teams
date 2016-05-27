@@ -6,10 +6,10 @@ import java.io.File;
 import javax.imageio.*;
 import java.io.*;
 /**
- * Write a description of class AnimationsTest here.
+ * The AnimationsTest class is a class we wrote in order to test out the Animations that we were going to use in the RPS class
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Danny Attia
+ * @version 5/26/16
  */
 public class AnimationsTest extends JPanel implements MouseListener, MouseMotionListener, ActionListener
 {

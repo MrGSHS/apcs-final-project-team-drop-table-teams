@@ -10,10 +10,10 @@ import java.util.*;
 
 
 /**
- * Write a description of class TTT_Frame here.
+ * The Hangman class contains everything necessary for the Hangman game - CURRENTLY IN BETA
  * 
- * @author (your name)
- * @version (a version number or a date)
+ * @author Sanketh Bhaskar
+ * @version 5/26/16
  */
 public class Hangman extends JPanel implements MouseListener, ActionListener {
     /**

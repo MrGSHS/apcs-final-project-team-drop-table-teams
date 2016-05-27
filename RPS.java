@@ -7,10 +7,10 @@ import javax.imageio.*;
 import java.io.*;
 
 /**
- * Write a description of class TTT_Frame here.
+ * The RPS class contains everything necessary for the RPS game
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author (Danny Attia
+ * @version 5/26/16
  */
 
 public class RPS extends JPanel implements MouseListener, MouseMotionListener, ActionListener{

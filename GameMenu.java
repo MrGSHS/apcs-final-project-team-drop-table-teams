@@ -1,8 +1,8 @@
 /**
- * Write a description of class GameMenu here.
+ * GameMenu is used to start the program and to pick from the 3 possible game options on the menu
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Danny Attia, Sanketh Bhaskar, and John Armgardt
+ * @version 5/26/16
  */
 import java.awt.*;
 import javax.swing.*;

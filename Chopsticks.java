@@ -9,10 +9,10 @@ import java.io.*;
 
 
 /**
- * Write a description of class TTT_Frame here.
+ * The Chopsticks class contains everything necessary for the Chopsticks game
  * 
- * @author (your name)
- * @version (a version number or a date)
+ * @author Sanketh Bhaskar
+ * @version 5/26/16
  */
 public class Chopsticks extends JPanel implements MouseListener, ActionListener {
     /**

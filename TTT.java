@@ -7,10 +7,10 @@ import javax.imageio.*;
 import java.io.*;
 import java.awt.Font.*;
 /**
- * Write a description of class TTT_Frame here.
+ * The TTT class contains everything necessary for the tic tac toe game
  * 
- * @author (your name)
- * @version (a version number or a date)
+ * @author John Armgardt
+ * @version 5/26/16
  */
 public class TTT extends JPanel implements MouseListener, ActionListener {
     //private static final long serialVersionUID = 1L;
